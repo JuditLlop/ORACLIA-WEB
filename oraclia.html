@@ -12,11 +12,74 @@
     .or-shell{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.or-sidebar{background:var(--or-side);border-right:1px solid var(--or-line);padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between}.or-brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:650;letter-spacing:.03em}.or-brand-symbol{width:30px;height:30px;border:2px solid var(--or-accent);border-radius:50%;display:grid;place-items:center;color:var(--or-accent);font-size:18px}.or-sidebar-label{margin-top:70px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--or-muted)}.or-sidebar p{margin:15px 0;color:var(--or-ink);font:22px/1.45 Georgia,serif}.or-sidebar small{color:var(--or-muted);font-size:13px;line-height:1.5}.or-sidebar-symbols{color:var(--or-accent);font-size:24px;letter-spacing:.22em}.or-main{min-width:0}.or-topbar{height:77px;border-bottom:1px solid var(--or-line);display:flex;align-items:center;justify-content:space-between;padding:0 42px;color:var(--or-muted);font-size:14px}.or-topbar a:hover{color:var(--or-ink)}.or-nav{display:flex;align-items:center;gap:18px}.or-version{border:1px solid var(--or-line);border-radius:999px;padding:7px 12px;font-size:12px;margin-left:2px}.or-content{max-width:760px;padding:70px 42px 100px;margin:auto}.or-kicker{font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--or-muted);margin:0 0 22px}.or-content h1{font:400 clamp(46px,6vw,76px)/1.03 Georgia,serif;letter-spacing:-.045em;margin:0 0 22px}.or-intro{max-width:620px;color:var(--or-muted);font-size:18px;line-height:1.6;margin:0}.or-panel{margin-top:46px;border:1px solid var(--or-line);border-radius:16px;background:#fff;padding:28px}.or-panel-title{font-weight:700;margin:0 0 8px}.or-panel p{color:var(--or-muted);margin:0;max-width:600px}.or-input-row{margin-top:26px;display:flex;gap:10px}.or-input{flex:1;border:1px solid var(--or-line);border-radius:9px;background:#fff;padding:14px 15px;font:inherit;color:var(--or-ink)}.or-button{border:0;border-radius:9px;background:var(--or-accent);color:#fff;padding:0 18px;font:inherit;font-weight:600}.or-note{margin-top:18px;color:var(--or-muted);font-size:13px}.or-footer{max-width:760px;margin:auto;padding:0 42px 34px;color:var(--or-muted);font-size:12px}
     @media(max-width:760px){.or-shell{grid-template-columns:1fr}.or-sidebar{display:none}.or-topbar{padding:0 20px}.or-content{padding:58px 20px 70px}.or-footer{padding-left:20px;padding-right:20px}.or-input-row{display:block}.or-input{width:100%}.or-button{margin-top:10px;padding:12px 18px;width:100%}}
   </style>
+  <style>
+    .or-chat-status{margin-top:18px;color:var(--or-muted);font-size:13px;min-height:1.4em}
+    .or-messages{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+    .or-message{border-radius:12px;padding:14px 16px;line-height:1.65;white-space:pre-wrap}
+    .or-message.user{background:var(--or-side);align-self:flex-end;max-width:88%}
+    .or-message.assistant{border:1px solid var(--or-line);background:#fff}
+    .or-message-label{display:block;color:var(--or-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  </style>
 </head>
 <body>
   <div class="or-shell">
     <aside class="or-sidebar" aria-label="Información de Oraclia"><div><a class="or-brand" href="index.html"><span class="or-brand-symbol" aria-hidden="true">◉</span><span>Oraclia</span></a><p class="or-sidebar-label">Un espacio para pensar</p><p>Preguntas.<br>Ideas.<br>Decisiones.</p></div><div><small>Una conversación puede ayudarte a ordenar lo que estás trabajando.</small><div class="or-sidebar-symbols" aria-hidden="true">◉ · ? · ≋</div></div></aside>
-    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-panel" aria-label="Espacio de conversación"><p class="or-panel-title">¿Qué quieres trabajar?</p><p>Escribe una pregunta, una idea o una situación. La conversación se conectará aquí con la aplicación de Oraclia.</p><div class="or-input-row"><input class="or-input" type="text" placeholder="Escribe tu pregunta…" disabled><button class="or-button" type="button" disabled>Enviar</button></div><p class="or-note">La conexión con la aplicación está pendiente de configurar.</p></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
+    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-panel" aria-label="Espacio de conversación"><p class="or-panel-title">¿Qué quieres trabajar?</p><p>Escribe una pregunta, una idea o una situación.</p><form id="or-form"><div class="or-input-row"><input id="or-input" class="or-input" type="text" placeholder="Escribe tu pregunta…" autocomplete="off" required><button id="or-send" class="or-button" type="submit">Enviar</button></div></form><p id="or-status" class="or-chat-status" role="status"></p><div id="or-messages" class="or-messages" aria-live="polite"></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
   </div>
+  <script>
+    const ORACLIA_API = 'https://oraclia-api.onrender.com/oraclia';
+    const form = document.getElementById('or-form');
+    const input = document.getElementById('or-input');
+    const send = document.getElementById('or-send');
+    const status = document.getElementById('or-status');
+    const messages = document.getElementById('or-messages');
+    let memory = [];
+    let continuityKey = null;
+
+    function addMessage(role, text) {
+      const article = document.createElement('article');
+      article.className = `or-message ${role}`;
+      if (role === 'assistant') {
+        const label = document.createElement('span');
+        label.className = 'or-message-label';
+        label.textContent = 'Oraclia';
+        article.appendChild(label);
+      }
+      article.appendChild(document.createTextNode(text));
+      messages.appendChild(article);
+      article.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text || send.disabled) return;
+      addMessage('user', text);
+      input.value = '';
+      send.disabled = true;
+      status.textContent = 'Oraclia está pensando…';
+      try {
+        const payload = {text, memory};
+        if (continuityKey) payload.continuity_key = continuityKey;
+        const response = await fetch(ORACLIA_API, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error(`Error de connexió (${response.status})`);
+        const data = await response.json();
+        if (!data.message) throw new Error('La respuesta de Oraclia no es válida.');
+        addMessage('assistant', data.message);
+        memory = Array.isArray(data.memory) ? data.memory : memory;
+        continuityKey = data.continuity_key || null;
+        status.textContent = data.conversation_warning || '';
+      } catch (error) {
+        status.textContent = error.message || 'No se ha podido conectar con Oraclia.';
+      } finally {
+        send.disabled = false;
+        input.focus();
+      }
+    });
+  </script>
 </body>
 </html>
