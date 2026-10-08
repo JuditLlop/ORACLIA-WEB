@@ -21,67 +21,23 @@
     .or-message-label{display:block;color:var(--or-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
     .or-composer{position:sticky;bottom:0;z-index:3;background:rgba(255,255,255,.96);padding-top:16px;margin-top:18px}
     .or-composer form{margin:0}
+    .or-tools{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .or-tools button,.or-tools select{background:transparent;border:1px solid var(--or-line);border-radius:8px;padding:8px 12px;color:var(--or-ink);font:inherit;font-size:13px;cursor:pointer}
+    .or-storage-note{font-size:12px;margin-top:10px!important}
+    .or-key{white-space:normal;margin-top:14px;border-top:1px solid var(--or-line);padding-top:10px;font-size:13px}
+    .or-key summary{cursor:pointer;color:var(--or-muted);list-style:none;width:fit-content;padding:5px 0}
+    .or-key summary:focus-visible{outline:2px solid var(--or-accent);outline-offset:3px}
+    .or-key[open] summary{color:var(--or-ink)}
+    .or-key dl{display:grid;grid-template-columns:1fr;gap:4px;margin:10px 0}
+    .or-key dt{font-weight:650;margin-top:8px}.or-key dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
   </style>
 </head>
 <body>
   <div class="or-shell">
     <aside class="or-sidebar" aria-label="Información de Oraclia"><div><a class="or-brand" href="index.html"><span class="or-brand-symbol" aria-hidden="true">◉</span><span>Oraclia</span></a><p class="or-sidebar-label">Un espacio para pensar</p><p>Preguntas.<br>Ideas.<br>Decisiones.</p></div><div><small>Una conversación puede ayudarte a ordenar lo que estás trabajando.</small><div class="or-sidebar-symbols" aria-hidden="true">◉ · ? · ≋</div></div></aside>
-    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-panel" aria-label="Espacio de conversación"><p class="or-panel-title">¿Qué quieres trabajar?</p><p>Escribe una pregunta, una idea o una situación.</p><div id="or-messages" class="or-messages" aria-live="polite"></div><div class="or-composer"><form id="or-form"><div class="or-input-row"><input id="or-input" class="or-input" type="text" placeholder="Escribe tu pregunta…" autocomplete="off" required><button id="or-send" class="or-button" type="submit">Enviar</button></div></form><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
+    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-panel" aria-label="Espacio de conversación"><p class="or-panel-title">¿Qué quieres trabajar?</p><p>Escribe una pregunta, una idea o una situación.</p><div id="or-messages" class="or-messages" aria-live="polite"></div><div class="or-composer"><form id="or-form"><div class="or-input-row"><input id="or-input" class="or-input" type="text" placeholder="Escribe tu pregunta…" autocomplete="off" required><button id="or-send" class="or-button" type="submit">Enviar</button></div></form><div class="or-tools"><button id="or-export" type="button">Guardar copia</button><button id="or-new" type="button">Nueva conversación</button><select id="or-archive" aria-label="Recuperar una conversación guardada" hidden></select></div><p class="or-storage-note">La conversación y su traza se guardan en este navegador. Puedes exportarlas o borrarlas; no se sincronizan entre dispositivos.</p><div class="or-tools"><button id="or-delete" type="button">Borrar datos guardados</button></div><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
   </div>
-  <script>
-    const ORACLIA_API = 'https://oraclia-api.onrender.com/oraclia';
-    const form = document.getElementById('or-form');
-    const input = document.getElementById('or-input');
-    const send = document.getElementById('or-send');
-    const status = document.getElementById('or-status');
-    const messages = document.getElementById('or-messages');
-    let memory = [];
-    let continuityKey = null;
-
-    function addMessage(role, text) {
-      const article = document.createElement('article');
-      article.className = `or-message ${role}`;
-      if (role === 'assistant') {
-        const label = document.createElement('span');
-        label.className = 'or-message-label';
-        label.textContent = 'Oraclia';
-        article.appendChild(label);
-      }
-      article.appendChild(document.createTextNode(text));
-      messages.appendChild(article);
-      article.scrollIntoView({behavior:'smooth', block:'nearest'});
-    }
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const text = input.value.trim();
-      if (!text || send.disabled) return;
-      addMessage('user', text);
-      input.value = '';
-      send.disabled = true;
-      status.textContent = 'Oraclia está pensando…';
-      try {
-        const payload = {text, memory};
-        if (continuityKey) payload.continuity_key = continuityKey;
-        const response = await fetch(ORACLIA_API, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
-        });
-        if (!response.ok) throw new Error(`Error de conexión (${response.status})`);
-        const data = await response.json();
-        if (!data.message) throw new Error('La respuesta de Oraclia no es válida.');
-        addMessage('assistant', data.message);
-        memory = Array.isArray(data.memory) ? data.memory : memory;
-        continuityKey = data.continuity_key || null;
-        status.textContent = data.conversation_warning || '';
-      } catch (error) {
-        status.textContent = error.message || 'No se ha podido conectar con Oraclia.';
-      } finally {
-        send.disabled = false;
-        input.focus();
-      }
-    });
-  </script>
+  <script src="oraclia-chat.js" defer></script>
 </body>
 </html>
+
