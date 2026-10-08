@@ -233,7 +233,10 @@
       try { localStorage.setItem(STORAGE, JSON.stringify(next)); }
       catch (_) { throw Error('No hay espacio para guardar esta copia. La conversación actual sigue intacta.'); }
       state = next; storageError = ''; redraw();
-      status.textContent = 'Conversación cargada con su traza. La anterior sigue guardada. Al enviar un mensaje, el contexto recuperado se enviará a Oraclia.';
+      // A visible, editable continuation lets the person send immediately.
+      // Preserve any message they had already started writing.
+      if (!input.value.trim()) input.value = 'Conversación cargada. Seguimos.';
+      status.textContent = `Archivo «${file.name}» cargado con su conversación y su traza. Pulsa Enviar para continuar o escribe lo que quieras. La conversación anterior sigue guardada.`;
       input.focus();
     } catch (error) {
       status.textContent = error.message || 'No se ha podido cargar la conversación.';
