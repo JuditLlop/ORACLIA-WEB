@@ -56,12 +56,32 @@
     details.append(summary, dl); article.appendChild(details);
   }
 
+  function appendAnswerText(body, text) {
+    // Render only paired bold markers. All content remains text nodes;
+    // HTML, scripts and links from model output are never executed.
+    // Some outputs escape the markers as \*\*: accept paired escaped
+    // markers too, without unescaping any other user/model content.
+    const source = String(text || '');
+    const pattern = /(\*\*|\\\*\\\*)([^\n]+?)\1/g;
+    let cursor = 0;
+    for (const match of source.matchAll(pattern)) {
+      body.appendChild(document.createTextNode(source.slice(cursor, match.index)));
+      const strong = document.createElement('strong'); strong.textContent = match[2];
+      body.appendChild(strong);
+      cursor = match.index + match[0].length;
+    }
+    body.appendChild(document.createTextNode(source.slice(cursor)));
+  }
+
   function addMessage(role, text, key, scroll = true) {
     const article = document.createElement('article'); article.className = `or-message ${role}`;
     if (role === 'assistant') {
       const label = document.createElement('span'); label.className = 'or-message-label'; label.textContent = 'Oraclia'; article.appendChild(label);
     }
-    const body = document.createElement('div'); body.textContent = text; article.appendChild(body);
+    const body = document.createElement('div');
+    if (role === 'assistant') appendAnswerText(body, text);
+    else body.textContent = text;
+    article.appendChild(body);
     if (role === 'assistant') addKey(article, key);
     messages.appendChild(article);
     if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'nearest'});
