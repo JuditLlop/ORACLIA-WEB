@@ -154,6 +154,94 @@
     link.href = url; link.download = `oraclia-traza-${new Date().toISOString().slice(0,10)}.json`;
     link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
+
+  // Import the complete JSON produced by Guardar copia; a bare key is not a conversation.
+  const importButton = document.createElement('button');
+  importButton.type = 'button'; importButton.id = 'or-import';
+  importButton.textContent = 'Cargar conversación';
+  document.getElementById('or-export').after(importButton);
+  const importFile = document.createElement('input');
+  importFile.type = 'file'; importFile.id = 'or-import-file';
+  importFile.accept = '.json,application/json'; importFile.hidden = true;
+  importButton.after(importFile);
+  let importing = false;
+
+  function validateImport(value) {
+    const object = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+    const strings = v => Array.isArray(v) && v.every(s => typeof s === 'string');
+    function rejectUnsafe(v) {
+      if (!v || typeof v !== 'object') return;
+      for (const k of Object.keys(v)) {
+        if (['__proto__', 'constructor', 'prototype'].includes(k)) throw Error('El archivo contiene campos no admitidos.');
+        rejectUnsafe(v[k]);
+      }
+    }
+    rejectUnsafe(value);
+    function conversation(c) {
+      if (!object(c) || !Array.isArray(c.memory) || c.memory.length > 2000 ||
+          !object(c.movementKeys) || (c.continuityKey != null && typeof c.continuityKey !== 'string')) throw Error('El archivo no es una copia completa de Oraclia.');
+      for (const t of c.memory) {
+        if (!object(t) || typeof t.user !== 'string' || typeof t.assistant !== 'string' ||
+            (t.turn_id != null && typeof t.turn_id !== 'string')) throw Error('Hay mensajes con un formato no válido.');
+      }
+      for (const key of Object.values(c.movementKeys)) {
+        if (!object(key) || typeof key.turn_id !== 'string' ||
+            (key.symbols != null && !strings(key.symbols)) ||
+            (key.alternatives != null && !strings(key.alternatives))) throw Error('Hay trazas con un formato no válido.');
+        if (key.relations != null && (!Array.isArray(key.relations) ||
+            !key.relations.every(r => object(r) && (r.members == null || strings(r.members))))) throw Error('Hay relaciones con un formato no válido.');
+        if (key.absences != null && (!Array.isArray(key.absences) || !key.absences.every(object))) throw Error('Hay ausencias con un formato no válido.');
+        if (key.symbol_change && (!object(key.symbol_change) ||
+            !['kept','added','removed'].every(k => strings(key.symbol_change[k])))) throw Error('Hay cambios de símbolos con un formato no válido.');
+        if (key.usage && (!object(key.usage) || (key.usage.stages != null &&
+            (!Array.isArray(key.usage.stages) || !key.usage.stages.every(object))))) throw Error('Hay registros de uso con un formato no válido.');
+      }
+    }
+    if (!object(value) || value.version !== 1 || !Array.isArray(value.archives) ||
+        value.archives.length > 2000) throw Error('Selecciona el JSON completo de «Guardar copia», no una traza suelta.');
+    conversation(value);
+    value.archives.forEach(a => {
+      conversation(a);
+      if (typeof a.saved_at !== 'string' || !Number.isFinite(Date.parse(a.saved_at))) throw Error('Hay conversaciones guardadas con un formato no válido.');
+    });
+    return value;
+  }
+
+  importButton.addEventListener('click', () => {
+    if (!send.disabled && !importing) importFile.click();
+  });
+  importFile.addEventListener('change', async () => {
+    const file = importFile.files[0];
+    if (!file || send.disabled || importing) { importFile.value = ''; return; }
+    importing = true; send.disabled = true; importButton.disabled = true;
+    try {
+      if (file.size > 10 * 1024 * 1024) throw Error('El archivo supera el máximo de 10 MB.');
+      const text = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(Error('No se ha podido leer el archivo.'));
+        reader.readAsText(file);
+      });
+      let loaded;
+      try { loaded = JSON.parse(text); } catch (_) { throw Error('El archivo no contiene JSON válido.'); }
+      validateImport(loaded);
+      const archives = [...state.archives];
+      if (state.memory.length) archives.push({saved_at:new Date().toISOString(),memory:state.memory,movementKeys:state.movementKeys,continuityKey:state.continuityKey});
+      archives.push(...loaded.archives);
+      const next = {version:1,memory:loaded.memory,movementKeys:loaded.movementKeys,continuityKey:loaded.continuityKey || null,archives};
+      // Persist before replacing the active conversation: quota errors preserve current data.
+      try { localStorage.setItem(STORAGE, JSON.stringify(next)); }
+      catch (_) { throw Error('No hay espacio para guardar esta copia. La conversación actual sigue intacta.'); }
+      state = next; storageError = ''; redraw();
+      status.textContent = 'Conversación cargada con su traza. La anterior sigue guardada. Al enviar un mensaje, el contexto recuperado se enviará a Oraclia.';
+      input.focus();
+    } catch (error) {
+      status.textContent = error.message || 'No se ha podido cargar la conversación.';
+    } finally {
+      importing = false; send.disabled = false; importButton.disabled = false; importFile.value = '';
+    }
+  });
+
   document.getElementById('or-new').addEventListener('click', () => {
     if (send.disabled) return;
     if (state.memory.length) state.archives.push({saved_at: new Date().toISOString(), memory: state.memory, movementKeys: state.movementKeys, continuityKey: state.continuityKey});
