@@ -12,6 +12,26 @@
   let state = {version: 1, memory: [], movementKeys: {}, continuityKey: null, archives: []};
   let storageError = '';
 
+  function sizeComposer() {
+    const composer = document.querySelector('.or-composer');
+    if (composer) document.documentElement.style.setProperty('--or-composer-height', (composer.getBoundingClientRect().height + 24) + 'px');
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(sizeComposer).observe(document.querySelector('.or-composer'));
+  }
+  window.addEventListener('resize', sizeComposer);
+  sizeComposer();
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 130) + 'px';
+  });
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      if (!send.disabled) form.requestSubmit();
+    }
+  });
+
   function save() {
     try {
       localStorage.setItem(STORAGE, JSON.stringify(state));
@@ -84,7 +104,7 @@
     article.appendChild(body);
     if (role === 'assistant') addKey(article, key);
     messages.appendChild(article);
-    if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
   function redraw() {
@@ -112,7 +132,7 @@
     event.preventDefault();
     const text = input.value.trim(); if (!text || send.disabled) return;
     redraw();
-    addMessage('user', text); input.value = ''; send.disabled = true;
+    addMessage('user', text); input.value = ''; input.style.height = 'auto'; send.disabled = true;
     status.textContent = 'Oraclia está pensando…';
     try {
       // The archive remains local. Only three recent movement keys accompany
@@ -140,12 +160,12 @@
       });
       state.continuityKey = data.continuity_key || null;
       redraw();
-      if (messages.lastElementChild) messages.lastElementChild.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      if (messages.lastElementChild) messages.lastElementChild.scrollIntoView({behavior: 'smooth', block: 'start'});
       save(); status.textContent = [data.conversation_warning, storageError].filter(Boolean).join(' ');
     } catch (error) {
       status.textContent = error.message || 'No se ha podido conectar con Oraclia.';
       input.value = text;
-    } finally { send.disabled = false; input.focus(); }
+    } finally { send.disabled = false; input.focus({preventScroll: true}); }
   });
 
   document.getElementById('or-export').addEventListener('click', () => {
@@ -236,8 +256,8 @@
       // A visible, editable continuation lets the person send immediately.
       // Preserve any message they had already started writing.
       if (!input.value.trim()) input.value = 'Conversación cargada. Seguimos.';
-      status.textContent = `Archivo «${file.name}» cargado con su conversación y su traza. Pulsa Enviar para continuar o escribe lo que quieras. La conversación anterior sigue guardada.`;
-      input.focus();
+      status.textContent = `Archivo «${file.name}» cargado. Puedes enviar o editar el texto.`;
+      input.focus({preventScroll: true});
     } catch (error) {
       status.textContent = error.message || 'No se ha podido cargar la conversación.';
     } finally {
@@ -249,7 +269,9 @@
     if (send.disabled) return;
     if (state.memory.length) state.archives.push({saved_at: new Date().toISOString(), memory: state.memory, movementKeys: state.movementKeys, continuityKey: state.continuityKey});
     state.memory = []; state.movementKeys = {}; state.continuityKey = null;
-    redraw(); save(); status.textContent = storageError || 'Nueva conversación. La anterior se conserva en la copia exportable.';
+    input.value = ''; input.style.height = 'auto';
+    redraw(); save(); status.textContent = storageError || 'Nueva conversación. La anterior está en Conversaciones y copias.';
+    input.focus({preventScroll: true});
   });
   archiveSelect.addEventListener('change', () => {
     if (send.disabled || archiveSelect.value === '') return;
@@ -259,7 +281,9 @@
     if (state.memory.length) state.archives.push({saved_at: new Date().toISOString(), memory: state.memory, movementKeys: state.movementKeys, continuityKey: state.continuityKey});
     state.memory = archive.memory; state.movementKeys = archive.movementKeys;
     state.continuityKey = archive.continuityKey || null;
+    input.value = ''; input.style.height = 'auto';
     redraw(); save(); status.textContent = storageError || 'Conversación recuperada.';
+    if (messages.lastElementChild) messages.lastElementChild.scrollIntoView({behavior:'smooth',block:'start'});
   });
   document.getElementById('or-delete').addEventListener('click', () => {
     if (send.disabled || !window.confirm('¿Borrar todas las conversaciones y trazas guardadas en este navegador?')) return;

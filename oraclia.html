@@ -35,11 +35,44 @@
     .or-key dl{display:grid;grid-template-columns:1fr;gap:4px;margin:10px 0}
     .or-key dt{font-weight:650;margin-top:8px}.or-key dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
   </style>
+  <style>
+    /* The whole thread uses page scrolling; writing stays at the bottom. */
+    .or-shell{padding-bottom:var(--or-composer-height,130px)}
+    .or-panel{padding:0;border:0;background:transparent}
+    .or-conversation-actions{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-bottom:28px}
+    .or-conversation-actions>button{background:var(--or-accent);color:#fff;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-size:14px;cursor:pointer}
+    .or-history-tools{flex:1;min-width:210px;font-size:14px}
+    .or-history-tools>summary{cursor:pointer;padding:10px 0;color:var(--or-muted)}
+    .or-messages{margin-top:0;gap:24px;overflow:visible;max-height:none}
+    .or-message{overflow-wrap:anywhere;scroll-margin-top:24px;scroll-margin-bottom:var(--or-composer-height,130px)}
+    .or-message.user{max-width:85%;padding:14px 18px}
+    .or-message.assistant{background:transparent;border:0;padding:12px 0}
+    .or-composer{position:fixed;left:245px;right:0;bottom:0;z-index:10;background:var(--or-bg);border-top:1px solid var(--or-line);padding:12px 20px calc(12px + env(safe-area-inset-bottom));margin:0}
+    .or-composer form,.or-composer .or-chat-status{max-width:676px;margin:0 auto}
+    .or-composer .or-input-row{display:flex;align-items:flex-end;gap:10px;margin:0}
+    .or-composer .or-input{display:block;min-width:0;width:100%;flex:1;resize:none;min-height:50px;max-height:130px;box-sizing:border-box;line-height:1.5;font-size:16px}
+    .or-composer .or-button{width:auto;margin:0;flex:0 0 auto;padding:14px 18px;min-height:50px}
+    .or-composer .or-chat-status{font-size:12px;line-height:1.4;margin-top:6px;min-height:0;overflow-wrap:anywhere}
+    .or-composer .or-chat-status:empty{display:none}
+    @media(max-width:760px){.or-composer{left:0;padding-left:16px;padding-right:16px}.or-message.user{max-width:90%}.or-conversation-actions{gap:10px}.or-composer .or-button{padding:14px 12px}.or-content{padding-bottom:30px}}
+</style>
 </head>
 <body>
   <div class="or-shell">
     <aside class="or-sidebar" aria-label="Información de Oraclia"><div><a class="or-brand" href="index.html"><span class="or-brand-symbol" aria-hidden="true">◉</span><span>Oraclia</span></a><p class="or-sidebar-label">Un espacio para pensar</p><p>Preguntas.<br>Ideas.<br>Decisiones.</p></div><div><small>Una conversación puede ayudarte a ordenar lo que estás trabajando.</small><div class="or-sidebar-symbols" aria-hidden="true">◉ · ? · ≋</div></div></aside>
-    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-about" aria-labelledby="or-about-title"><h2 id="or-about-title">Qué es este espacio</h2><p>Oraclia es un espacio compartido para mirar, pensar y crear sentido a partir de un alfabeto de 21 símbolos. Su significado no nace solo de la definición de cada símbolo, sino también de cómo se relacionan entre ellos y de lo que aparece al conversar.</p><p>Los símbolos entran en juego cuando ayudan a hacer visible una relación o a abrir una posibilidad. No tienen que aparecer siempre ni dicen algo fijo sobre ti. Lo que surge es una interpretación que puedes cuestionar, cambiar o explorar desde otro ángulo.</p><p>Podemos pensar juntos, explorar una pregunta, escribir, buscar otro enfoque o poner a prueba una intuición. Puedes pedir una forma concreta: un debate, una escena, un diálogo, una pregunta, un aforismo, una perspectiva científica, una sorpresa, el silencio… Si no eliges una, Oraclia escogerá la que mejor permita expresar lo que estáis trabajando.</p></section><section class="or-panel" aria-label="Espacio de conversación"><div id="or-messages" class="or-messages" aria-live="polite"></div><div class="or-composer"><form id="or-form"><div class="or-input-row"><input id="or-input" class="or-input" type="text" placeholder="Escribe tu pregunta…" autocomplete="off" required><button id="or-send" class="or-button" type="submit">Enviar</button></div></form><div class="or-tools"><button id="or-export" type="button">Guardar copia</button><button id="or-new" type="button">Nueva conversación</button><select id="or-archive" aria-label="Recuperar una conversación guardada" hidden></select></div><p class="or-storage-note">La conversación y su traza se guardan en este navegador. Puedes exportarlas o borrarlas; no se sincronizan entre dispositivos.</p><div class="or-tools"><button id="or-delete" type="button">Borrar datos guardados</button></div><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
+    <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-about" aria-labelledby="or-about-title"><h2 id="or-about-title">Qué es este espacio</h2><p>Oraclia es un espacio compartido para mirar, pensar y crear sentido a partir de un alfabeto de 21 símbolos. Su significado no nace solo de la definición de cada símbolo, sino también de cómo se relacionan entre ellos y de lo que aparece al conversar.</p><p>Los símbolos entran en juego cuando ayudan a hacer visible una relación o a abrir una posibilidad. No tienen que aparecer siempre ni dicen algo fijo sobre ti. Lo que surge es una interpretación que puedes cuestionar, cambiar o explorar desde otro ángulo.</p><p>Podemos pensar juntos, explorar una pregunta, escribir, buscar otro enfoque o poner a prueba una intuición. Puedes pedir una forma concreta: un debate, una escena, un diálogo, una pregunta, un aforismo, una perspectiva científica, una sorpresa, el silencio… Si no eliges una, Oraclia escogerá la que mejor permita expresar lo que estáis trabajando.</p></section><section class="or-panel" aria-label="Espacio de conversación">
+<div class="or-conversation-actions">
+<button id="or-new" type="button">Nueva conversación</button>
+<details class="or-history-tools"><summary>Conversaciones y copias</summary>
+<div class="or-tools"><button id="or-export" type="button">Guardar copia</button><select id="or-archive" aria-label="Recuperar una conversación guardada" hidden></select></div>
+<p class="or-storage-note">Las conversaciones se guardan en este navegador. Puedes cargar una copia JSON para continuar en otro dispositivo.</p>
+<div class="or-tools"><button id="or-delete" type="button">Borrar datos guardados</button></div>
+</details></div>
+<div id="or-messages" class="or-messages" aria-live="polite"></div>
+<div class="or-composer"><form id="or-form"><div class="or-input-row">
+<textarea id="or-input" class="or-input" rows="1" aria-label="Tu mensaje a Oraclia" placeholder="Escribe tu mensaje…" autocomplete="off" required></textarea>
+<button id="or-send" class="or-button" type="submit">Enviar</button>
+</div></form><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
   </div>
   <script src="oraclia-chat.js" defer></script>
 </body>
