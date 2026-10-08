@@ -33,24 +33,24 @@
   </style>
   <style>
     /* The whole thread uses page scrolling; writing stays at the bottom. */
-    .or-shell{padding-bottom:var(--or-composer-height,130px)}
-    .or-panel{padding:0;border:0;background:transparent}
+    .or-shell{padding-bottom:0}
+    .or-panel{padding:20px;border:1px solid var(--or-line);background:#eeeeec;margin-top:28px}
     .or-conversation-actions{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-bottom:28px}
     .or-conversation-actions>button{background:var(--or-accent);color:#fff;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-size:14px;cursor:pointer}
     .or-history-tools{flex:1;min-width:210px;font-size:14px}
     .or-history-tools>summary{cursor:pointer;padding:10px 0;color:var(--or-muted)}
-    .or-messages{margin-top:0;gap:24px;overflow:visible;max-height:none}
+    .or-messages{margin-top:0;gap:24px;overflow:visible;max-height:none}.or-messages:empty{display:none}.or-messages:not(:empty){padding-bottom:16px}
     .or-message{overflow-wrap:anywhere;scroll-margin-top:24px;scroll-margin-bottom:var(--or-composer-height,130px)}
-    .or-message.user{max-width:85%;padding:14px 18px}
+    .or-message.user{max-width:85%;padding:14px 18px;background:#dededb}
     .or-message.assistant{background:transparent;border:0;padding:12px 0}
-    .or-composer{position:fixed;left:245px;right:0;bottom:0;z-index:10;background:var(--or-bg);border-top:1px solid var(--or-line);padding:12px 20px calc(12px + env(safe-area-inset-bottom));margin:0}
+    .or-composer{position:sticky;left:auto;right:auto;bottom:0;z-index:10;background:#eeeeec;border-top:0;padding:12px 0 calc(4px + env(safe-area-inset-bottom));margin:0}
     .or-composer form,.or-composer .or-chat-status{max-width:676px;margin:0 auto}
     .or-composer .or-input-row{display:flex;align-items:flex-end;gap:10px;margin:0}
     .or-composer .or-input{display:block;min-width:0;width:100%;flex:1;resize:none;min-height:50px;max-height:130px;box-sizing:border-box;line-height:1.5;font-size:16px}
     .or-composer .or-button{width:auto;margin:0;flex:0 0 auto;padding:14px 18px;min-height:50px}
     .or-composer .or-chat-status{font-size:12px;line-height:1.4;margin-top:6px;min-height:0;overflow-wrap:anywhere}
     .or-composer .or-chat-status:empty{display:none}
-    @media(max-width:760px){.or-composer{left:0;padding-left:16px;padding-right:16px}.or-message.user{max-width:90%}.or-conversation-actions{gap:10px}.or-composer .or-button{padding:14px 12px}.or-content{padding-bottom:30px}}
+    @media(max-width:760px){.or-composer{left:auto;padding-left:0;padding-right:0}.or-panel{padding:14px}.or-message.user{max-width:90%}.or-conversation-actions{gap:10px}.or-composer .or-button{padding:14px 12px}.or-content{padding-bottom:30px}}
 </style>
 <style>
 .or-composer .or-input-row{position:relative;border:1px solid var(--or-line);border-radius:14px;background:#fff;padding:6px}
@@ -70,6 +70,12 @@
 .or-compose-popover .or-storage-note{line-height:1.5}
 .or-compose-popover #or-delete{margin-top:12px;font-size:12px}
 .or-compose-popover #or-archive{margin-top:10px}
+</style>
+<style>
+.or-main{display:flex;flex-direction:column;min-height:100vh}
+.or-content{width:100%;box-sizing:border-box;flex:1;margin:0 auto;padding-bottom:36px}
+.or-footer{width:100%;box-sizing:border-box;margin:0 auto;padding-top:18px}
+@media(max-width:760px){.or-content{padding-bottom:24px}}
 </style>
 </head>
 <body>
