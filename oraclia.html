@@ -52,20 +52,45 @@
     .or-composer .or-chat-status:empty{display:none}
     @media(max-width:760px){.or-composer{left:0;padding-left:16px;padding-right:16px}.or-message.user{max-width:90%}.or-conversation-actions{gap:10px}.or-composer .or-button{padding:14px 12px}.or-content{padding-bottom:30px}}
 </style>
+<style>
+.or-composer .or-input-row{position:relative;border:1px solid var(--or-line);border-radius:14px;background:#fff;padding:6px}
+.or-composer .or-input{border:0;background:transparent;padding:10px 8px}
+.or-compose-menu{flex:0 0 auto;align-self:flex-end}
+.or-compose-menu>summary{list-style:none;display:grid;place-items:center;width:42px;height:46px;font-size:30px;line-height:1;color:var(--or-ink);cursor:pointer;border-radius:8px}
+.or-compose-menu>summary::-webkit-details-marker{display:none}
+.or-compose-menu>summary:hover,.or-compose-menu[open]>summary{background:var(--or-side)}
+.or-compose-menu>summary:focus-visible{outline:2px solid var(--or-accent)}
+.or-compose-popover{position:absolute;bottom:calc(100% + 10px);left:0;width:310px;max-width:calc(100vw - 44px);max-height:55vh;overflow-y:auto;background:#fff;border:1px solid var(--or-line);border-radius:14px;box-shadow:0 8px 28px #0002;padding:14px}
+.or-quick-actions{margin:0;flex-direction:column;gap:6px}
+.or-compose-popover button,.or-compose-popover select{width:100%;text-align:left;border:1px solid var(--or-line);border-radius:8px;background:#fff;color:var(--or-ink);padding:10px 12px;font:inherit;font-size:14px;cursor:pointer}
+.or-quick-actions button span{margin-right:6px}
+.or-compose-popover #or-import:before{content:"📂";margin-right:10px}
+.or-compose-popover .or-history-tools{min-width:0;margin-top:10px}
+.or-compose-popover .or-history-tools>summary{border:1px solid var(--or-line);border-radius:8px;padding:10px 12px;color:var(--or-ink)}
+.or-compose-popover .or-storage-note{line-height:1.5}
+.or-compose-popover #or-delete{margin-top:12px;font-size:12px}
+.or-compose-popover #or-archive{margin-top:10px}
+</style>
 </head>
 <body>
   <div class="or-shell">
     <aside class="or-sidebar" aria-label="Información de Oraclia"><div><a class="or-brand" href="index.html"><span class="or-brand-symbol" aria-hidden="true">◉</span><span>Oraclia</span></a><p class="or-sidebar-label">Un espacio para pensar</p><p>Preguntas.<br>Ideas.<br>Decisiones.</p></div><div><small>Una conversación puede ayudarte a ordenar lo que estás trabajando.</small><div class="or-sidebar-symbols" aria-hidden="true">◉ · ? · ≋</div></div></aside>
     <div class="or-main"><header class="or-topbar"><a href="index.html">Oraclia</a><nav class="or-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="https://biblioteca-oraclia.onrender.com" target="_blank" rel="noreferrer">Biblioteca</a><a href="index.html#notes">Notas</a><a href="index.html#projecte">El proyecto</a><a href="index.html#contacte">Contacto</a><span class="or-version">ES</span></nav></header><main class="or-content"><p class="or-kicker">Conversación</p><h1>Habla con Oraclia.</h1><p class="or-intro">Un espacio para ordenar una pregunta, revisar una idea o preparar una decisión con más perspectiva.</p><section class="or-panel" aria-label="Espacio de conversación">
-<div class="or-conversation-actions">
-<button id="or-new" type="button">Nueva conversación</button>
-<details class="or-history-tools"><summary>Conversaciones y copias</summary>
-<div class="or-tools"><button id="or-export" type="button">Guardar copia</button><select id="or-archive" aria-label="Recuperar una conversación guardada" hidden></select></div>
-<p class="or-storage-note">Las conversaciones se guardan en este navegador. Puedes cargar una copia JSON para continuar en otro dispositivo.</p>
-<div class="or-tools"><button id="or-delete" type="button">Borrar datos guardados</button></div>
-</details></div>
 <div id="or-messages" class="or-messages" aria-live="polite"></div>
 <div class="or-composer"><form id="or-form"><div class="or-input-row">
+<details class="or-compose-menu">
+<summary aria-label="Abrir acciones de conversación" title="Acciones de conversación">+</summary>
+<div class="or-compose-popover">
+<div class="or-tools or-quick-actions">
+<button id="or-new" type="button"><span aria-hidden="true">📝</span> Nueva conversación</button>
+<button id="or-export" type="button"><span aria-hidden="true">💾</span> Guardar copia</button>
+</div>
+<details class="or-history-tools"><summary>Conversaciones guardadas</summary>
+<select id="or-archive" aria-label="Recuperar una conversación guardada" hidden></select>
+<p class="or-storage-note">Las conversaciones se guardan en este navegador. Puedes cargar una copia JSON para continuar en otro dispositivo.</p>
+<button id="or-delete" type="button">Borrar datos guardados</button>
+</details>
+</div></details>
 <textarea id="or-input" class="or-input" rows="1" aria-label="Tu mensaje a Oraclia" placeholder="Escribe tu mensaje…" autocomplete="off" required></textarea>
 <button id="or-send" class="or-button" type="submit">Enviar</button>
 </div></form><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer class="or-footer">Oraclia · Un espacio para pensar, conversar y crear</footer></div>
