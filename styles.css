@@ -28,3 +28,17 @@
 .article-symbols{font-size:23px;color:var(--accent);letter-spacing:.08em}
 .editorial-note{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin:36px 0}
 @media(max-width:760px){.notes-page,.article-page{padding:36px 20px}.notes-page .notes-intro{font-size:16px}.article-body{font-size:16px}.notes-page h1,.article-page h1{overflow-wrap:anywhere}}
+
+/* Shared two-row header: location first, navigation below. */
+header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;height:auto;min-height:0;margin:0;padding:20px 28px 0;background:#f7f7f5;border-bottom:1px solid #d8d8d4;color:#70716d;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.or-site-header .or-header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0;width:100%;padding-bottom:16px}
+.or-site-header .or-header-location{display:block;min-width:0;color:#70716d;text-decoration:none;font-size:16px;font-weight:400;letter-spacing:normal;text-transform:none;line-height:1.4}
+.or-site-header .or-header-language{flex:0 0 auto;border:1px solid #d8d8d4;border-radius:999px;padding:5px 11px;color:#70716d;font-size:12px;line-height:1.5}
+.or-site-header .or-header-nav{display:flex;flex:0 0 auto;align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:24px;width:100%;min-width:0;margin:0;padding:0 0 12px;overflow-x:auto;white-space:nowrap;color:#70716d;font-size:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.or-site-header .or-header-nav a{display:inline-block;flex:0 0 auto;padding:4px 0;color:#70716d;text-decoration:none;line-height:1.5}
+.or-site-header .or-header-nav a[aria-current="page"]{color:#20201f;text-decoration:underline;text-underline-offset:5px}
+.or-site-header a:hover{color:#20201f}
+.or-site-header a:focus-visible{outline:2px solid #555653;outline-offset:4px}
+.or-site-header #logout{flex:0 0 auto;margin:0}
+@media(min-width:1240px){body>header.or-site-header{padding-left:max(28px,calc((100vw - 1124px)/2));padding-right:max(28px,calc((100vw - 1124px)/2))}}
+@media(max-width:760px){header.or-site-header{padding:16px 20px 0}.or-site-header .or-header-row{padding-bottom:16px}.or-site-header .or-header-nav{gap:20px;font-size:14px;padding-bottom:12px}.or-site-header .or-header-location{font-size:16px}}
