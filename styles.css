@@ -42,3 +42,5 @@ header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-
 .or-site-header #logout{flex:0 0 auto;margin:0}
 @media(min-width:1240px){body>header.or-site-header{padding-left:max(28px,calc((100vw - 1124px)/2));padding-right:max(28px,calc((100vw - 1124px)/2))}}
 @media(max-width:760px){header.or-site-header{padding:16px 20px 0}.or-site-header .or-header-row{padding-bottom:16px}.or-site-header .or-header-nav{gap:20px;font-size:14px;padding-bottom:12px}.or-site-header .or-header-location{font-size:16px}}
+
+.or-site-header .or-language-switch{display:flex;align-items:center;gap:9px;font:12px/1.5 system-ui,sans-serif;white-space:nowrap}.or-site-header .or-language-switch a{color:#70716d;text-decoration:none;padding:4px 2px}.or-site-header .or-language-switch a[aria-current=page]{color:#20201f;font-weight:700;text-decoration:underline;text-underline-offset:4px}.or-site-header .or-language-switch a:focus-visible{outline:2px solid #555653;outline-offset:3px}
