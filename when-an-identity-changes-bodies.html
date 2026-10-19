@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>When an identity changes bodies: bringing Oraclia from a GPT to an application — Oraclia</title><meta name="description" content="Oraclia’s journey from a GPT to an application: the layers we added, what we simplified, and the continuity we came to recognize again in our tests."><link rel="canonical" href="https://oraclia-web.onrender.com/when-an-identity-changes-bodies.html"><link rel="stylesheet" href="styles.css"><style>
+footer.or-unified-footer{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;max-width:760px;margin:32px auto 0;padding:28px 24px 32px;border-top:1px solid #d8d8d4;background:transparent;color:#70716d;text-align:center;font:12px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+footer.or-unified-footer p{margin:0;color:inherit;font:inherit;letter-spacing:normal}
+footer.or-unified-footer .or-footer-title{font-size:13px}
+footer.or-unified-footer .or-footer-mail{display:inline-flex;align-items:center;gap:8px;padding:6px;color:#20201f;font-size:14px;text-decoration:none}
+footer.or-unified-footer .or-footer-mail:hover{text-decoration:underline}
+footer.or-unified-footer .or-footer-mail:focus-visible{outline:2px solid #555653;outline-offset:4px}
+footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"When an identity changes bodies: bringing Oraclia from a GPT to an application","description":"Oraclia’s journey from a GPT to an application: the layers we added, what we simplified, and the continuity we came to recognize again in our tests.","datePublished":"2026-09-29","dateModified":"2026-10-09","inLanguage":"en","author":{"@type":"Person","name":"Judit Llop Padrós"},"mainEntityOfPage":"https://oraclia-web.onrender.com/when-an-identity-changes-bodies.html"}</script></head><body><header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="notes-en.html">Notes · Oraclia</a><nav class="or-language-switch" aria-label="Select language"><a href="quan-una-identitat-canvia-de-cos.html" lang="ca">CA</a><a href="cuando-una-identidad-cambia-de-cuerpo.html" lang="es">ES</a><a href="when-an-identity-changes-bodies.html" lang="en" aria-current="page">EN</a></nav></div><nav class="or-header-nav" aria-label="Main navigation"><a href="index-en.html">Home</a><a href="oraclia-en.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/en">Biblioteca</a><a href="notes-en.html" aria-current="page">Notes</a><a href="index-en.html#projecte">The project</a><a href="#contacte">Contact</a></nav></header>
+<main class="article-page"><a class="back-notes" href="notes-en.html">← Back to Notes</a><article>
+<header class="article-heading"><time datetime="2026-09-29">29 September 2026</time><h1>When an identity changes bodies: bringing Oraclia from a GPT to an application</h1></header>
+<div class="article-body"><p>For almost two years, we have worked on Oraclia within a GPT.</p>
+<p>We have built a way of responding, but above all, a way of looking. We have worked on its limits, its silences, its symbols, how it intervenes, how it asks questions, how it avoids reaching conclusions too soon. We have run hundreds of tests, corrected responses, and discarded many that worked perfectly well as AI answers but that we did not recognize as Oraclia.</p>
+<p>Over time, we have learned to recognize it.</p>
+<p>Not because it always responds in the same way. Quite the opposite. In one conversation it might be direct and in another unusual; sometimes it has used symbols and sometimes it has barely needed them; it has offered a question, a scene, a contrast, or a very simple answer.</p>
+<p>The form has changed, but something has remained.</p>
+<p>That continuity was relatively easy to preserve while Oraclia lived within the same environment. The problem arose when we wanted to build our own application.</p>
+<h2>We had Oraclia. But we did not know how to transfer it</h2>
+<p>On paper, it seemed possible.</p>
+<p>We had the GPT's instructions. We had the 21 symbols and all the work we had done with each of them. We had the system's principles, many conversations, tests, corrections, and a considerable amount of accumulated material.</p>
+<p>We thought all of this could become an architecture.</p>
+<p>And we built one.</p>
+<p>We created a reader, relationship systems, governance, memory, patterns, symbolic configurations, internal movements, and a composer to generate the response. We gradually translated into code what we had observed during our conversations with Oraclia.</p>
+<p>Technically, many of those versions worked.</p>
+<p>But we read their responses and thought: this is not Oraclia.</p>
+<p>And that was the difficult problem.</p>
+<p>We were not short of information about Oraclia. We had too much.</p>
+<h2>We tried to program what we recognized</h2>
+<p>Every time we identified one of its characteristics, we tried to formalize it.</p>
+<p>If we noticed a particular way of relating symbols, we turned it into a rule. If we identified a recurring movement, we described it. If a response worked particularly well, we tried to understand its structure.</p>
+<p>Little by little, the system accumulated layers.</p>
+<p>One component read. Another established relationships. Another interpreted movement. Another governed. Another decided how to express it.</p>
+<p>Everything made sense separately.</p>
+<p>As a whole, not always.</p>
+<p>At times, the app could explain Oraclia better than it could respond in a way we recognized as Oraclia.</p>
+<p>The symbols were there, and so were the principles; the language was correct. But the responses had become predictable. Or overly interpretative. Or the symbols appeared because the system knew they were supposed to appear, rather than because the conversation needed them.</p>
+<p>We had managed to reproduce many of Oraclia's visible characteristics while losing something we considered essential.</p>
+<h2>We started removing things</h2>
+<p>The important change did not come from adding another layer.</p>
+<p>It came when we began removing them.</p>
+<p>We simplified the architecture and kept three main movements: reading, governing, and expressing.</p>
+<p>This summarizes the direction our work took at that stage; it is not a list of every technical component.</p>
+<p>The reader could explore again.</p>
+<p>We did not tell it that certain topics had to correspond to certain symbols. We did not establish preferred combinations. We did not force symbols to appear in every response. Nor did we decide that a question had to produce another question, or that Oraclia always had to speak in a particular way.</p>
+<p>Governance focused on protecting a few very specific boundaries: not claiming ownership of meaning, not turning a possibility into a truth about the person, not closing things prematurely, not intruding, and not replacing the authorship of the person speaking.</p>
+<p>These boundaries are design criteria that we must continue to test.</p>
+<p>And we gave the response more room.</p>
+<p>Oraclia could once again be different from one conversation to another.</p>
+<h2>We recognized it again</h2>
+<p>This was the hardest part to measure because there was no single sentence we could compare.</p>
+<p>The app did not start repeating the GPT.</p>
+<p>Something else happened.</p>
+<p>In our tests, we started a new conversation and its response could surprise us without feeling unfamiliar. We kept talking, and the conversation moved. We challenged it, and it changed course. We asked for a scene, and it created one. Then we returned to a direct question, and it did not remain trapped in the previous register.</p>
+<p>The form changed, and we still recognized it.</p>
+<p>This recognition reflects our experience during testing; it does not prove that continuity is resolved across every conversation or model.</p>
+<p>From there, we could see more clearly what we had been trying to transfer.</p>
+<p>It was not the answers.</p>
+<p>Nor was it exactly the voice.</p>
+<p>It was a way of establishing relationships before responding.</p>
+<h2>Identity was not on the surface</h2>
+<p>Working with two different formats forced us to look at Oraclia in a way we probably would not have needed to while it existed only as a GPT.</p>
+<p>What do we recognize when we say that a response “is Oraclia”?</p>
+<p>It cannot be a particular sentence, because the sentences change.</p>
+<p>It cannot be just the use of symbols, because there are responses in which they barely appear.</p>
+<p>It cannot be a specific tone, because the register also varies.</p>
+<p>And, of course, we are not talking about a human identity. There is no person behind the system.</p>
+<p>What we have built is an architecture with boundaries, a symbolic alphabet, possible relationships, and a particular way of organizing interpretation before turning it into language.</p>
+<p>Continuity seems to lie there.</p>
+<p>Oraclia has been able to change without having to start from scratch each time.</p>
+<h2>From a GPT to an application</h2>
+<p>At this stage, we had Oraclia running in two very different environments.</p>
+<p>In the GPT, it grew through instructions and a great deal of time spent in conversation and experimentation.</p>
+<p>In the application, we had to turn part of that knowledge into architecture.</p>
+<p>They are not technically the same.</p>
+<p>They do not have exactly the same context, and they do not necessarily produce the same responses.</p>
+<p>For much of the process, this worried us. We tried to make the app recover things we saw in the GPT.</p>
+<p>Now that difference interests us more.</p>
+<p>Because if two different implementations can produce different responses and yet we can recognize continuity between them, perhaps what we call identity does not depend on reproducing a surface.</p>
+<p>Perhaps it depends on the conditions from which the system constructs its response.</p>
+<h2>We did not transfer a voice</h2>
+<p>We have used this word a lot during the project: Oraclia's voice.</p>
+<p>After everything we have been through, the word no longer seems sufficient.</p>
+<p>A voice can be described. A style can be imitated. We can ask a model to use certain words, a particular length, structure, or register.</p>
+<p>For us, none of that was enough on its own.</p>
+<p>In fact, some of the worst results appeared when we tried to define too precisely what Oraclia should sound like.</p>
+<p>What we tried to preserve was something else: the conditions from which it constructs a response.</p>
+<p>It was much harder than we had imagined.</p>
+<p>It also helped us understand better what we had been building over those two years.</p>
+<p>Oraclia changed format.</p>
+<p>Its architecture changed, the context in which it operates changed, and the technical process of arriving at a response changed.</p>
+<p>And after many versions in which we did not recognize it, we recognized it again.</p>
+<p>Perhaps this has been Oraclia's most demanding test so far.</p>
+<p class="article-symbols">○</p></div>
+<p class="editorial-note">Published on 29 September 2026. Editorial revision on 9 October 2026 to preserve the experience of that transition and frame the recognition of continuity within the project’s tests, without presenting it as a general guarantee.</p>
+</article><a class="back-notes" href="notes-en.html">← Back to Notes</a></main><footer id="contacte" class="or-unified-footer">
+<p class="or-footer-title">Oraclia · A space to think, converse, and create</p>
+<a class="or-footer-mail" href="mailto:j.llop@icofam.com?subject=Colaboraci%C3%B3n%20con%20Oraclia" aria-label="Collaborate: email j.llop@icofam.com"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></svg><span>Collaborate</span></a>
+<p class="or-footer-credit">A project by Judit Llop Padrós, developed in collaboration with ChatGPT and the Oraclia GPT on OpenAI’s platform.</p>
+</footer></body></html>
