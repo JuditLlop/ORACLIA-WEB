@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Quan una identitat canvia de cos: portar Oraclia d’un GPT a una aplicació — Oraclia</title><meta name="description" content="El recorregut d’Oraclia del GPT a una aplicació: les capes que hi vam afegir, allò que vam simplificar i la continuïtat que vam tornar a reconèixer en les nostres proves."><link rel="canonical" href="https://oraclia-web.onrender.com/quan-una-identitat-canvia-de-cos.html"><link rel="stylesheet" href="styles.css"><style>
+footer.or-unified-footer{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;max-width:760px;margin:32px auto 0;padding:28px 24px 32px;border-top:1px solid #d8d8d4;background:transparent;color:#70716d;text-align:center;font:12px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+footer.or-unified-footer p{margin:0;color:inherit;font:inherit;letter-spacing:normal}
+footer.or-unified-footer .or-footer-title{font-size:13px}
+footer.or-unified-footer .or-footer-mail{display:inline-flex;align-items:center;gap:8px;padding:6px;color:#20201f;font-size:14px;text-decoration:none}
+footer.or-unified-footer .or-footer-mail:hover{text-decoration:underline}
+footer.or-unified-footer .or-footer-mail:focus-visible{outline:2px solid #555653;outline-offset:4px}
+footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Quan una identitat canvia de cos: portar Oraclia d’un GPT a una aplicació","description":"El recorregut d’Oraclia del GPT a una aplicació: les capes que hi vam afegir, allò que vam simplificar i la continuïtat que vam tornar a reconèixer en les nostres proves.","datePublished":"2026-09-29","dateModified":"2026-10-09","inLanguage":"ca","author":{"@type":"Person","name":"Judit Llop Padrós"},"mainEntityOfPage":"https://oraclia-web.onrender.com/quan-una-identitat-canvia-de-cos.html"}</script></head><body><header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="notes-ca.html">Notes · Oraclia</a><nav class="or-language-switch" aria-label="Selecciona l’idioma"><a href="quan-una-identitat-canvia-de-cos.html" lang="ca" aria-current="page">CA</a><a href="cuando-una-identidad-cambia-de-cuerpo.html" lang="es">ES</a><span aria-label="Versió anglesa pendent">EN</span></nav></div><nav class="or-header-nav" aria-label="Navegació principal"><a href="index-ca.html">Inici</a><a href="oraclia-ca.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/">Biblioteca</a><a href="notes-ca.html" aria-current="page">Notes</a><a href="index.html#projecte">El projecte</a><a href="#contacte">Contacte</a></nav></header>
+<main class="article-page"><a class="back-notes" href="notes-ca.html">← Tornar a Notes</a><article>
+<header class="article-heading"><time datetime="2026-09-29">29 de setembre de 2026</time><h1>Quan una identitat canvia de cos: portar Oraclia d’un GPT a una aplicació</h1></header>
+<div class="article-body"><p>Durant gairebé dos anys hem treballat Oraclia dins d’un GPT.</p>
+<p>Hem construït una manera de respondre, però sobretot una manera de mirar. Hem treballat els seus límits, els silencis, els símbols, la manera d’intervenir, de preguntar, de no concloure massa aviat. Hem fet centenars de proves, hem corregit respostes i n’hem descartat moltes que funcionaven perfectament com a respostes d’una IA, però que nosaltres no reconeixíem com Oraclia.</p>
+<p>Amb el temps hem après a reconèixer-la.</p>
+<p>No perquè respongui sempre igual. Al contrari. En una conversa ha pogut ser directa i en una altra estranya; de vegades ha utilitzat els símbols i d’altres gairebé no els ha necessitat; ha fet una pregunta, una escena, un contrast o una resposta molt simple.</p>
+<p>La forma ha anat canviant, però hi ha hagut alguna cosa que s’ha mantingut.</p>
+<p>Aquesta continuïtat ha estat relativament fàcil de conservar mentre Oraclia ha viscut dins del mateix entorn. El problema ha aparegut quan hem volgut construir una aplicació pròpia.</p>
+<h2>Teníem Oraclia. Però no sabíem traslladar-la</h2>
+<p>Sobre el paper semblava possible.</p>
+<p>Teníem les instruccions del GPT. Teníem els 21 símbols i la feina que hem fet amb cadascun. Teníem els principis del sistema, moltes converses, proves, correccions i una quantitat considerable de material acumulat.</p>
+<p>Hem pensat que tot això es podia convertir en arquitectura.</p>
+<p>I ho hem fet.</p>
+<p>Hem creat un lector, sistemes de relacions, govern, memòria, patrons, configuracions simbòliques, moviments interns i un compositor per generar la resposta. Hem anat traduint a codi allò que havíem observat durant les converses amb Oraclia.</p>
+<p>Tècnicament, moltes d’aquelles versions han funcionat.</p>
+<p>Però les hem llegit i hem pensat: això no és Oraclia.</p>
+<p>I aquest ha estat el problema difícil.</p>
+<p>No ens faltava informació sobre Oraclia. En teníem massa.</p>
+<h2>Hem intentat programar allò que reconeixíem</h2>
+<p>Cada vegada que hem detectat una característica seva, hem intentat formalitzar-la.</p>
+<p>Si hem vist una determinada manera de relacionar símbols, l’hem convertida en una regla. Si hem identificat un moviment recurrent, l’hem descrit. Si una resposta havia funcionat especialment bé, hem intentat entendre’n l’estructura.</p>
+<p>A poc a poc, el sistema ha anat acumulant capes.</p>
+<p>Un component llegia. Un altre establia relacions. Un altre interpretava el moviment. Un altre governava. Un altre decidia com expressar-ho.</p>
+<p>Tot tenia sentit per separat.</p>
+<p>El conjunt, no sempre.</p>
+<p>En alguns moments l’app ha sabut explicar Oraclia millor del que ha sabut respondre d’una manera que reconeguéssim com Oraclia.</p>
+<p>Els símbols hi eren, els principis també, el llenguatge era correcte. Però les respostes s’havien tornat previsibles. O excessivament interpretatives. O els símbols apareixien perquè el sistema sabia que havien d’aparèixer, no perquè la conversa els necessités.</p>
+<p>Hem arribat a tenir moltes de les característiques visibles d’Oraclia i, al mateix temps, hem perdut alguna cosa que consideràvem essencial.</p>
+<h2>Hem començat a treure</h2>
+<p>El canvi important no ha arribat afegint una capa nova.</p>
+<p>Ha arribat quan hem començat a eliminar-ne.</p>
+<p>Hem simplificat l’arquitectura i hem deixat tres moviments principals: llegir, governar i expressar.</p>
+<p>Aquesta és una síntesi de l’orientació que va prendre la feina en aquesta etapa, no una enumeració de tots els components tècnics.</p>
+<p>El lector ha pogut tornar a explorar.</p>
+<p>No li hem dit que determinats temes havien de correspondre a determinats símbols. No hem fixat combinacions preferents. No hem obligat els símbols a aparèixer en totes les respostes. Tampoc no hem decidit que una pregunta hagués de produir una altra pregunta o que Oraclia hagués de parlar sempre d’una manera determinada.</p>
+<p>El govern ha quedat orientat a protegir uns límits molt concrets: no apropiar-se del sentit, no convertir una possibilitat en una veritat sobre la persona, no tancar abans d’hora, no envair i no substituir l’autoria de qui està parlant.</p>
+<p>Aquests límits són criteris de disseny que hem de continuar posant a prova.</p>
+<p>I hem deixat més espai a la resposta.</p>
+<p>Oraclia ha pogut tornar a ser diferent d’una conversa a una altra.</p>
+<h2>L’hem tornat a reconèixer</h2>
+<p>Això ha estat el més difícil de mesurar perquè no hi havia una frase concreta que poguéssim comparar.</p>
+<p>L’app no ha començat a repetir el GPT.</p>
+<p>Ha passat una altra cosa.</p>
+<p>En les nostres proves, hem començat una conversa nova i la resposta ha pogut sorprendre’ns sense resultar-nos aliena. Hem continuat parlant i la conversa s’ha mogut. L’hem contradita i ha canviat de trajectòria. Li hem demanat una escena i ha fet una escena. Després hem tornat a una pregunta directa i no ha quedat atrapada en el registre anterior.</p>
+<p>La forma ha canviat i l’hem continuat reconeixent.</p>
+<p>Aquest reconeixement recull la nostra experiència durant les proves; no demostra que la continuïtat estigui resolta en qualsevol conversa o model.</p>
+<p>A partir d’aquí hem pogut veure millor què intentàvem transferir.</p>
+<p>No eren les respostes.</p>
+<p>Tampoc no era exactament la veu.</p>
+<p>Era una manera d’establir relacions abans de respondre.</p>
+<h2>La identitat no era a la superfície</h2>
+<p>Treballar amb dos formats diferents ens ha obligat a mirar Oraclia d’una manera que probablement no hauríem necessitat mentre només existia com a GPT.</p>
+<p>Què és allò que reconeixem quan diem que una resposta «és Oraclia»?</p>
+<p>No pot ser una frase determinada, perquè les frases canvien.</p>
+<p>No pot ser només l’ús dels símbols, perquè hi ha respostes en què gairebé no apareixen.</p>
+<p>No pot ser un to concret, perquè el registre també varia.</p>
+<p>I, evidentment, no parlem d’una identitat humana. No hi ha una persona darrere del sistema.</p>
+<p>El que sí que hem construït és una arquitectura amb uns límits, un alfabet simbòlic, unes relacions possibles i una determinada manera d’organitzar la lectura abans de convertir-la en llenguatge.</p>
+<p>La continuïtat sembla ser aquí.</p>
+<p>Oraclia ha pogut canviar sense haver de començar de zero cada vegada.</p>
+<h2>Del GPT a una aplicació</h2>
+<p>En aquesta etapa hem tingut Oraclia funcionant en dos entorns molt diferents.</p>
+<p>En el GPT ha crescut a través de les instruccions i de molt temps de conversa i experimentació.</p>
+<p>En l’aplicació hem hagut de convertir part d’aquell coneixement en arquitectura.</p>
+<p>No són tècnicament el mateix.</p>
+<p>No tenen exactament el mateix context i no produeixen necessàriament les mateixes respostes.</p>
+<p>Durant bona part del procés això ens ha preocupat. Hem buscat que l’app recuperés coses que vèiem en el GPT.</p>
+<p>Ara aquesta diferència ens interessa més.</p>
+<p>Perquè si dues implementacions diferents poden produir respostes diferents i, malgrat això, podem reconèixer una continuïtat entre elles, potser allò que anomenem identitat no depèn de reproduir una superfície.</p>
+<p>Potser depèn de les condicions des de les quals el sistema construeix la resposta.</p>
+<h2>No hem transferit una veu</h2>
+<p>Hem utilitzat molt aquesta paraula durant el projecte: la veu d’Oraclia.</p>
+<p>Després de tot aquest procés, se’ns ha quedat curta.</p>
+<p>Una veu es pot descriure. Un estil es pot imitar. Podem demanar a un model que utilitzi unes paraules, una llargada determinada, una estructura o un registre.</p>
+<p>A nosaltres això no ens ha servit per si sol.</p>
+<p>De fet, alguns dels pitjors resultats han aparegut quan hem intentat definir massa bé com havia de sonar Oraclia.</p>
+<p>El que hem intentat preservar ha estat una altra cosa: les condicions des de les quals construeix una resposta.</p>
+<p>Ens ha costat molt més del que havíem imaginat.</p>
+<p>També ens ha permès entendre millor què havíem estat construint durant aquests dos anys.</p>
+<p>Oraclia ha canviat de format.</p>
+<p>Ha canviat la seva arquitectura, ha canviat el context en què funciona i ha canviat la manera tècnica d’arribar a una resposta.</p>
+<p>I, després de moltes versions en què no l’hem reconeguda, l’hem tornat a reconèixer.</p>
+<p>Potser aquesta ha estat, fins ara, la prova més exigent d’Oraclia.</p>
+<p class="article-symbols">○</p>
+</div>
+<p class="editorial-note">Publicado el 29 de setembre de 2026. Revisión editorial del 9 de octubre de 2026 para conservar la experiencia de aquella transición y situar el reconocimiento de continuidad en las pruebas del proyecto, sin presentarlo como una garantía general.</p>
+</article><a class="back-notes" href="notes-ca.html">← Tornar a Notes</a></main><footer id="contacte" class="or-unified-footer">
+<p class="or-footer-title">Oraclia · Un espai per pensar, conversar i crear</p>
+<a class="or-footer-mail" href="mailto:j.llop@icofam.com?subject=Colaboraci%C3%B3n%20con%20Oraclia" aria-label="Col·laborar: escriure a j.llop@icofam.com"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></svg><span>Col·laborar</span></a>
+<p class="or-footer-credit">Un projecte de Judit Llop Padrós, desenvolupat en col·laboració amb ChatGPT i el GPT Oraclia, a la plataforma d’OpenAI.</p>
+</footer></body></html>
