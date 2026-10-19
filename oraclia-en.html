@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A space to think and converse with Oraclia.">
+  <title>Oraclia — Conversation</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root{--or-bg:#f7f7f5;--or-side:#eeeeec;--or-ink:#20201f;--or-muted:#70716d;--or-line:#d8d8d4;--or-accent:#4f504c;--or-warm:#8b8c88}
+    body{background:var(--or-bg);color:var(--or-ink)}
+    .or-shell{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.or-sidebar{background:var(--or-side);border-right:1px solid var(--or-line);padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between}.or-brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:650;letter-spacing:.03em}.or-brand-symbol{width:30px;height:30px;border:2px solid var(--or-accent);border-radius:50%;display:grid;place-items:center;color:var(--or-accent);font-size:18px}.or-sidebar-label{margin-top:70px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--or-muted)}.or-sidebar p{margin:15px 0;color:var(--or-ink);font:22px/1.45 Georgia,serif}.or-sidebar small{color:var(--or-muted);font-size:13px;line-height:1.5}.or-sidebar-symbols{color:var(--or-accent);font-size:24px;letter-spacing:.22em}.or-main{min-width:0}.or-topbar{height:77px;border-bottom:1px solid var(--or-line);display:flex;align-items:center;justify-content:space-between;padding:0 42px;color:var(--or-muted);font-size:14px}.or-topbar a:hover{color:var(--or-ink)}.or-nav{display:flex;align-items:center;gap:18px}.or-version{border:1px solid var(--or-line);border-radius:999px;padding:7px 12px;font-size:12px;margin-left:2px}.or-content{max-width:760px;padding:70px 42px 100px;margin:auto}.or-kicker{font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--or-muted);margin:0 0 22px}.or-content h1{font:400 clamp(46px,6vw,76px)/1.03 Georgia,serif;letter-spacing:-.045em;margin:0 0 22px}.or-intro{max-width:620px;color:var(--or-muted);font-size:18px;line-height:1.6;margin:0}.or-panel{margin-top:46px;border:1px solid var(--or-line);border-radius:16px;background:#fff;padding:28px}.or-panel-title{font-weight:700;margin:0 0 8px}.or-panel p{color:var(--or-muted);margin:0;max-width:600px}.or-input-row{margin-top:26px;display:flex;gap:10px}.or-input{flex:1;border:1px solid var(--or-line);border-radius:9px;background:#fff;padding:14px 15px;font:inherit;color:var(--or-ink)}.or-button{border:0;border-radius:9px;background:var(--or-accent);color:#fff;padding:0 18px;font:inherit;font-weight:600}.or-note{margin-top:18px;color:var(--or-muted);font-size:13px}.or-footer{max-width:760px;margin:auto;padding:0 42px 34px;color:var(--or-muted);font-size:12px}
+    @media(max-width:760px){.or-shell{grid-template-columns:1fr}.or-sidebar{display:none}.or-topbar{height:auto;min-height:77px;flex-wrap:wrap;gap:10px;padding:14px 20px}.or-topbar>a{flex:0 0 auto}.or-nav{width:100%;overflow-x:auto;justify-content:flex-start;gap:18px;padding-bottom:2px}.or-nav a{display:inline-block;white-space:nowrap}.or-version{flex:0 0 auto}.or-content{padding:58px 20px 70px}.or-footer{padding-left:20px;padding-right:20px}.or-input-row{display:block}.or-input{width:100%}.or-button{margin-top:10px;padding:12px 18px;width:100%}}
+  </style>
+  <style>
+    .or-chat-status{margin-top:18px;color:var(--or-muted);font-size:13px;min-height:1.4em}
+    .or-messages{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+    .or-message{border-radius:12px;padding:14px 16px;line-height:1.65;white-space:pre-wrap}
+    .or-message.user{background:var(--or-side);align-self:flex-end;max-width:88%}
+    .or-message.assistant{border:1px solid var(--or-line);background:#fff}
+    .or-message-label{display:block;color:var(--or-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    .or-composer{position:sticky;bottom:0;z-index:3;background:rgba(255,255,255,.96);padding-top:16px;margin-top:18px}
+    .or-composer form{margin:0}
+    .or-tools{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .or-tools button,.or-tools select{background:transparent;border:1px solid var(--or-line);border-radius:8px;padding:8px 12px;color:var(--or-ink);font:inherit;font-size:13px;cursor:pointer}
+    .or-storage-note{font-size:12px;margin-top:10px!important}
+    .or-key{white-space:normal;margin-top:14px;border-top:1px solid var(--or-line);padding-top:10px;font-size:13px}
+    .or-key summary{cursor:pointer;color:var(--or-muted);list-style:none;width:fit-content;padding:5px 0}
+    .or-key summary:focus-visible{outline:2px solid var(--or-accent);outline-offset:3px}
+    .or-key[open] summary{color:var(--or-ink)}
+    .or-key dl{display:grid;grid-template-columns:1fr;gap:4px;margin:10px 0}
+    .or-key dt{font-weight:650;margin-top:8px}.or-key dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
+  </style>
+  <style>
+    /* The whole thread uses page scrolling; writing stays at the bottom. */
+    .or-shell{padding-bottom:0}
+    .or-panel{padding:20px;border:1px solid var(--or-line);background:#eeeeec;margin-top:28px}
+    .or-conversation-actions{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-bottom:28px}
+    .or-conversation-actions>button{background:var(--or-accent);color:#fff;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-size:14px;cursor:pointer}
+    .or-history-tools{flex:1;min-width:210px;font-size:14px}
+    .or-history-tools>summary{cursor:pointer;padding:10px 0;color:var(--or-muted)}
+    .or-messages{margin-top:0;gap:24px;overflow:visible;max-height:none}.or-messages:empty{display:none}.or-messages:not(:empty){padding-bottom:16px}
+    .or-message{overflow-wrap:anywhere;scroll-margin-top:24px;scroll-margin-bottom:var(--or-composer-height,130px)}
+    .or-message.user{max-width:85%;padding:14px 18px;background:#dededb}
+    .or-message.assistant{background:transparent;border:0;padding:12px 0}
+    .or-composer{position:sticky;left:auto;right:auto;bottom:0;z-index:10;background:#eeeeec;border-top:0;padding:12px 0 calc(4px + env(safe-area-inset-bottom));margin:0}
+    .or-composer form,.or-composer .or-chat-status{max-width:676px;margin:0 auto}
+    .or-composer .or-input-row{display:flex;align-items:flex-end;gap:10px;margin:0}
+    .or-composer .or-input{display:block;min-width:0;width:100%;flex:1;resize:none;min-height:50px;max-height:130px;box-sizing:border-box;line-height:1.5;font-size:16px}
+    .or-composer .or-button{width:auto;margin:0;flex:0 0 auto;padding:14px 18px;min-height:50px}
+    .or-composer .or-chat-status{font-size:12px;line-height:1.4;margin-top:6px;min-height:0;overflow-wrap:anywhere}
+    .or-composer .or-chat-status:empty{display:none}
+    @media(max-width:760px){.or-composer{left:auto;padding-left:0;padding-right:0}.or-panel{padding:14px}.or-message.user{max-width:90%}.or-conversation-actions{gap:10px}.or-composer .or-button{padding:14px 12px}.or-content{padding-bottom:30px}}
+</style>
+<style>
+.or-composer .or-input-row{position:relative;border:1px solid var(--or-line);border-radius:14px;background:#fff;padding:6px}
+.or-composer .or-input{border:0;background:transparent;padding:10px 8px}
+.or-compose-menu{flex:0 0 auto;align-self:flex-end}
+.or-compose-menu>summary{list-style:none;display:grid;place-items:center;width:42px;height:46px;font-size:30px;line-height:1;color:var(--or-ink);cursor:pointer;border-radius:8px}
+.or-compose-menu>summary::-webkit-details-marker{display:none}
+.or-compose-menu>summary:hover,.or-compose-menu[open]>summary{background:var(--or-side)}
+.or-compose-menu>summary:focus-visible{outline:2px solid var(--or-accent)}
+.or-compose-popover{position:absolute;bottom:calc(100% + 10px);left:0;width:310px;max-width:calc(100vw - 44px);max-height:55vh;overflow-y:auto;background:#fff;border:1px solid var(--or-line);border-radius:14px;box-shadow:0 8px 28px #0002;padding:14px}
+.or-quick-actions{margin:0;flex-direction:column;gap:6px}
+.or-compose-popover button,.or-compose-popover select{width:100%;text-align:left;border:1px solid var(--or-line);border-radius:8px;background:#fff;color:var(--or-ink);padding:10px 12px;font:inherit;font-size:14px;cursor:pointer}
+.or-quick-actions button span{margin-right:6px}
+.or-compose-popover #or-import:before{content:"📂";margin-right:10px}
+.or-compose-popover .or-history-tools{min-width:0;margin-top:10px}
+.or-compose-popover .or-history-tools>summary{border:1px solid var(--or-line);border-radius:8px;padding:10px 12px;color:var(--or-ink)}
+.or-compose-popover .or-storage-note{line-height:1.5}
+.or-compose-popover #or-delete{margin-top:12px;font-size:12px}
+.or-compose-popover #or-archive{margin-top:10px}
+</style>
+<style>
+.or-main{display:flex;flex-direction:column;min-height:100vh}
+.or-content{width:100%;box-sizing:border-box;flex:1;margin:0 auto;padding-bottom:36px}
+.or-footer{width:100%;box-sizing:border-box;margin:0 auto;padding-top:18px}
+@media(max-width:760px){.or-content{padding-bottom:24px}}
+</style>
+<style>
+footer.or-unified-footer{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;max-width:760px;margin:32px auto 0;padding:28px 24px 32px;border-top:1px solid #d8d8d4;background:transparent;color:#70716d;text-align:center;font:12px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+footer.or-unified-footer p{margin:0;color:inherit;font:inherit;letter-spacing:normal}
+footer.or-unified-footer .or-footer-title{font-size:13px}
+footer.or-unified-footer .or-footer-mail{display:inline-flex;align-items:center;gap:8px;padding:6px;color:#20201f;font-size:14px;text-decoration:none}
+footer.or-unified-footer .or-footer-mail:hover{text-decoration:underline}
+footer.or-unified-footer .or-footer-mail:focus-visible{outline:2px solid #555653;outline-offset:4px}
+footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
+</style>
+</head>
+<body>
+  <div class="or-shell">
+    <aside class="or-sidebar" aria-label="About Oraclia"><div><a class="or-brand" href="index-en.html"><span class="or-brand-symbol" aria-hidden="true">◉</span><span>Oraclia</span></a><p class="or-sidebar-label">A space to think</p><p>Questions.<br>Ideas.<br>Decisions.</p></div><div><small>A conversation can help you bring clarity to what you are working on.</small><div class="or-sidebar-symbols" aria-hidden="true">◉ · ? · ≋</div></div></aside>
+    <div class="or-main"><header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="oraclia-en.html">Oraclia</a><nav class="or-language-switch" aria-label="Select language"><a href="oraclia-ca.html" lang="ca">CA</a><a href="oraclia.html" lang="es">ES</a><a href="oraclia-en.html" lang="en" aria-current="page">EN</a></nav></div><nav class="or-header-nav" aria-label="Main navigation"><a href="index-en.html">Home</a><a href="oraclia-en.html" aria-current="page">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/">Biblioteca</a><a href="notes.html">Notes</a><a href="index-en.html#projecte">The project</a><a href="#contacte">Contact</a></nav></header><main class="or-content"><p class="or-kicker">Conversation</p><h1>Talk to Oraclia.</h1><p class="or-intro">A space to explore a question, revisit an idea, or approach a decision with a broader perspective.</p><section class="or-panel" aria-label="Conversation space">
+<div id="or-messages" class="or-messages" aria-live="polite"></div>
+<div class="or-composer"><form id="or-form"><div class="or-input-row">
+<details class="or-compose-menu">
+<summary aria-label="Open conversation actions" title="Conversation actions">+</summary>
+<div class="or-compose-popover">
+<div class="or-tools or-quick-actions">
+<button id="or-new" type="button"><span aria-hidden="true">📝</span> New conversation</button>
+<button id="or-export" type="button"><span aria-hidden="true">💾</span> Save a copy</button>
+</div>
+<details class="or-history-tools"><summary>Saved conversations</summary>
+<select id="or-archive" aria-label="Restore a saved conversation" hidden></select>
+<p class="or-storage-note">Conversations are saved in this browser. You can import a JSON copy to continue on another device.</p>
+<button id="or-delete" type="button">Delete saved data</button>
+</details>
+</div></details>
+<textarea id="or-input" class="or-input" rows="1" aria-label="Your message to Oraclia" placeholder="Write your message…" autocomplete="off" required></textarea>
+<button id="or-send" class="or-button" type="submit">Send</button>
+</div></form><p id="or-status" class="or-chat-status" role="status"></p></div></section></main><footer id="contacte" class="or-unified-footer">
+<p class="or-footer-title">Oraclia · A space to think, conversar y crear</p>
+<a class="or-footer-mail" href="mailto:j.llop@icofam.com?subject=Colaboraci%C3%B3n%20con%20Oraclia" aria-label="Collaborate: email j.llop@icofam.com"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></svg><span>Collaborate</span></a>
+<p class="or-footer-credit">A project by Judit Llop Padrós, developed in collaboration with ChatGPT and the Oraclia GPT on OpenAI's platform.</p>
+</footer></div>
+  </div>
+  <script src="oraclia-chat.js" defer></script>
+</body>
+</html>
+
