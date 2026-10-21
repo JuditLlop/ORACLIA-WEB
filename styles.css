@@ -52,3 +52,17 @@ header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-
   .or-site-header .or-header-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
   .or-site-header .or-header-nav a{display:inline-block;flex:0 0 auto;white-space:nowrap}
 }
+
+/* Oraclia: six views of one chair */
+.museum{max-width:1160px;margin:32px auto 76px;padding:30px clamp(18px,4vw,48px);box-sizing:border-box}
+.museum-heading{max-width:760px}.museum-heading h2{font-size:clamp(26px,3.4vw,42px);line-height:1.14;margin:12px 0 16px}.museum-heading>p:last-child{line-height:1.7;color:#646660}
+.museum-controls{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin:20px 0 12px}
+.museum-controls button{border:1px solid #c9d0c9;border-radius:50%;background:#fff;color:#486d59;width:42px;height:42px;cursor:pointer;font-size:22px}
+.museum-controls button:focus-visible,.museum-track:focus-visible{outline:2px solid #486d59;outline-offset:3px}
+.museum-count{font:13px system-ui,sans-serif;color:#6a706b;min-width:42px;text-align:center}
+.museum-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:3px 0 18px}
+.museum-slide{box-sizing:border-box;flex:0 0 min(360px,85%);scroll-snap-align:start;min-width:0;border:1px solid #dedfda;border-radius:14px;padding:20px 24px 28px;background:#fafaf8}
+.museum-art{height:165px;display:flex;justify-content:center;align-items:center}.museum-chair{height:160px;width:min(100%,220px)}
+.museum-symbol{display:block;font-size:28px;color:#486d59;margin:10px 0}.museum-slide h3{font-size:20px;margin:0 0 12px}.museum-slide p{line-height:1.65;color:#60645f;margin:0}
+.museum-conclusion{max-width:760px;line-height:1.7;margin:18px 0 0;color:#525b54}.museum-conclusion span{margin-left:12px;color:#486d59}
+@media(max-width:600px){.museum{padding:20px 18px;margin-bottom:50px}.museum-slide{flex-basis:88%;padding:14px 18px 22px}}
