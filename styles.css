@@ -139,3 +139,23 @@ header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-
 .or-preview-field>span:first-child{font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .or-preview-slide .or-preview-phrase{font-size:19px;line-height:1.55;color:#3f5147;margin:0;min-width:0}
 @media(max-width:380px){.or-preview-reading{gap:14px;grid-template-columns:minmax(84px,.85fr) minmax(0,1.65fr)}.or-preview-slide .or-preview-phrase{font-size:17px}.or-space-interactive .or-preview-stage{padding:20px 14px}}
+
+.or-theatre-open{width:100%;border:0;border-top:1px solid #e4e7e0;background:transparent;text-align:left;cursor:pointer;font:inherit;padding-right:0;padding-left:0}
+.or-theatre-panel{margin-top:28px;padding:28px;background:#fff;border:1px solid #c9d1c8;border-top:4px solid #bd263b;border-radius:5px;scroll-margin-top:24px}
+.or-theatre-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:24px}
+.or-theatre-heading h3{margin:0;color:#20231f;font:400 30px/1.2 Georgia,serif}
+.or-theatre-heading button{background:#fff;border:1px solid #cdd5cf;border-radius:5px;min-height:44px;padding:9px 12px;font:400 14px/1.4 system-ui,sans-serif;color:#344d41;cursor:pointer}
+#or-theatre-form label{display:block;margin-bottom:10px;color:#344d41;font-size:16px}
+#or-theatre-topic{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:116px;max-height:360px;padding:12px 14px;border:1px solid #cdd5cf;border-radius:5px;background:#fff;color:#20231f;font:400 16px/1.6 system-ui,sans-serif;resize:vertical}
+#or-theatre-note,.or-theatre-context{font-size:13px;line-height:1.6;color:#687067;margin:10px 0 18px}
+#or-theatre-generate{background:#fff;border:1px solid #aebcb2;border-radius:5px;padding:11px 16px;min-height:44px;color:#344d41;font:400 15px/1.5 system-ui,sans-serif;cursor:pointer}
+#or-theatre-generate:disabled{opacity:.55;cursor:wait}
+#or-theatre-status{color:#bd263b;font-weight:700;line-height:1.6}
+.or-theatre-result{max-width:760px;margin:28px auto 0;scroll-margin-top:24px;overflow-wrap:anywhere}
+.or-theatre-result h4{font:400 27px/1.3 Georgia,serif;color:#20231f;margin:0 0 22px}
+.or-theatre-result p{font:400 16px/1.8 system-ui,sans-serif;margin:0 0 18px;white-space:pre-wrap;color:#344d41}
+.or-theatre-result strong{font-weight:650;color:#20231f}
+.or-theatre-result .or-theatre-setting{color:#687067;font-style:italic;margin-bottom:26px}
+.or-theatre-result .or-theatre-silence{text-align:center;font-size:28px}
+.or-theatre-panel button:focus-visible,.or-theatre-open:focus-visible,#or-theatre-topic:focus-visible{outline:2px solid #486d59;outline-offset:3px}
+@media(max-width:430px){.or-theatre-panel{padding:22px 18px}.or-theatre-heading h3{font-size:26px}}
