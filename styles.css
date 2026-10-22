@@ -89,3 +89,13 @@ header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-
 .or-spaces-access{margin:24px 0 0;color:var(--muted);font-size:13px}
 @media(max-width:850px){.or-space-covers{grid-template-columns:1fr;gap:22px;max-width:600px}.or-cover-art{height:200px}.or-cover-copy{padding:25px}.or-spaces-intro{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.or-space-cover{transition:none}.or-space-cover:hover{transform:none}}
+
+/* Approved Theatre cover: flat red curtain, without gradients or depth. */
+.or-cover-theatre .or-cover-art{padding:0}
+.or-theatre-curtain{width:100%;height:100%;position:relative;overflow:hidden}
+.or-curtain-top{position:absolute;left:0;right:0;top:0;height:25px;background:#bd263b}
+.or-curtain-left,.or-curtain-right{position:absolute;top:0;width:34%;height:calc(100% - 24px);background:#bd263b;clip-path:polygon(0 0,100% 0,93% 17%,79% 35%,57% 49%,39% 58%,47% 76%,42% 100%,0 100%)}
+.or-curtain-left{left:0}.or-curtain-right{right:0;transform:scaleX(-1)}
+.or-curtain-cast{position:absolute;left:22%;right:22%;bottom:42px;display:flex;align-items:baseline;justify-content:space-around;color:#796354;font:400 35px/1 Georgia,serif}
+.or-curtain-cast>span:nth-child(2){font-size:46px}
+.or-curtain-stage{position:absolute;left:12%;right:12%;bottom:24px;height:2px;background:#b6a08e}
