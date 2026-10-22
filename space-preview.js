@@ -27,7 +27,7 @@
   visual.className='or-preview-wait-visual';visual.setAttribute('aria-hidden','true');waiting.replaceChildren(spoken,visual);
   const words=copy.waiting.split(/\s+/);let count=1,timer=null,stopped=false;
   function reveal(){if(stopped)return;visual.textContent=words.slice(0,count).join(' ');count++;timer=count<=words.length?setTimeout(reveal,850):null;}
-  mode('waiting');reveal();
+  mode('waiting');reveal();stage.scrollIntoView({block:'nearest',behavior:'smooth'});
   return ()=>{stopped=true;if(timer!==null)clearTimeout(timer);waiting.replaceChildren();};
  }
  find('previous').addEventListener('click',()=>{if(!phrases.length||busy)return;index=(index-1+phrases.length)%phrases.length;render();});
