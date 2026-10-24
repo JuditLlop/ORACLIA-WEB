@@ -1,0 +1,29 @@
+
+ #oraclia-slider-fils{background:transparent}
+ #oraclia-slider-fils .fil-carousel{max-width:640px;margin:auto;background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;color-scheme:light}
+ #oraclia-slider-fils .fil-image{margin:0;padding:28px 24px 16px;background:#fff;touch-action:pan-y}
+ #oraclia-slider-fils .fil-image[hidden]{display:none}
+ #oraclia-slider-fils .fil-drawing{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+ #oraclia-slider-fils .fil-line{fill:none;stroke:#000;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+ #oraclia-slider-fils figcaption{text-align:center;max-width:420px;margin:10px auto 0;min-height:116px}
+ #oraclia-slider-fils .fil-title{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:500;line-height:1.4;color:#000}
+ #oraclia-slider-fils .fil-text{margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:1.6;color:#000;overflow-wrap:anywhere}
+ #oraclia-slider-fils .fil-controls{display:flex;justify-content:center;align-items:center;gap:20px;padding:4px 20px 22px;background:#fff;color:#000}
+ #oraclia-slider-fils .fil-controls button{min-width:44px;min-height:44px;padding:7px 10px;border:1px solid #d4d4d4;border-radius:50%;background:#fff;color:#000;font:400 24px/1 Arial,Helvetica,sans-serif}
+ #oraclia-slider-fils .fil-controls [data-pause]{border:0;border-radius:0;font:400 13px/1.4 Arial,Helvetica,sans-serif;min-width:60px}
+ #oraclia-slider-fils .fil-controls button:focus-visible{outline:2px solid #000;outline-offset:3px}
+ #oraclia-slider-fils [data-count]{font:400 13px/1.4 Arial,Helvetica,sans-serif;font-variant-numeric:tabular-nums;min-width:34px;text-align:center}
+ #oraclia-slider-fils .fil-status{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+ @media(max-width:380px){#oraclia-slider-fils .fil-image{padding:24px 16px 10px}#oraclia-slider-fils .fil-controls{gap:14px}#oraclia-slider-fils figcaption{min-height:132px}}
+ 
+#oraclia-slider-fils .fil-base{stroke-width:1.6}
+#oraclia-slider-fils .fil-accent{stroke-width:3.2}
+#oraclia-slider-fils .fil-controls button{cursor:pointer}
+.fil-page{margin:0;background:#fff;color:#000;font:16px/1.6 Arial,Helvetica,sans-serif}
+.fil-page-header{max-width:1000px;margin:auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.fil-page-header a{color:#000;text-underline-offset:4px;font-size:14px}
+.fil-page-header nav{display:flex;gap:16px}
+.fil-page-header [aria-current=page]{font-weight:700}
+.fil-page-main{max-width:680px;padding:12px 16px;margin:0 auto}
+.fil-page-main>h1{font:400 30px/1.25 Arial,Helvetica,sans-serif;text-align:center;margin:16px 0 0}
+.fil-page-footer{max-width:680px;margin:24px auto 0;padding:12px 24px 28px;text-align:center;font:400 12px/1.6 Arial,Helvetica,sans-serif;color:#555}
