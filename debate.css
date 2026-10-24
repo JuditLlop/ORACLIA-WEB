@@ -1,0 +1,33 @@
+[data-oraclia-debate]{color:#20231f;background:#fff;max-width:850px;margin:0 auto;overflow-wrap:anywhere;font:400 16px/1.6 system-ui,-apple-system,sans-serif}
+[data-oraclia-debate] *{box-sizing:border-box}
+[data-oraclia-debate] [hidden]{display:none!important}
+[data-oraclia-debate] label{display:block;margin-bottom:10px;color:#344d41}
+[data-oraclia-debate] textarea{display:block;width:100%;min-width:0;min-height:92px;resize:vertical;padding:12px 14px;background:#fff;color:#20231f;border:1px solid #cdd5cf;border-radius:6px;font:inherit}
+[data-oraclia-debate] .debate-note{font-size:13px;color:#687067;margin:8px 0 20px}
+[data-oraclia-debate] .debate-board{position:relative;isolation:isolate}
+[data-oraclia-debate] .debate-label{font-size:14px;color:#536358;margin:0 0 10px}
+[data-oraclia-debate] .debate-bank{display:grid;grid-template-columns:repeat(auto-fit,minmax(48px,1fr));gap:8px;margin-bottom:20px}
+[data-oraclia-debate] .debate-symbol{position:relative;min-width:44px;min-height:48px;padding:6px;background:#fff;border:1px solid #dbe0d9;border-radius:8px;color:#171917;font:400 28px/1.15 'Segoe UI Symbol','Apple Symbols',sans-serif;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;flex:0 0 50px}
+[data-oraclia-debate] .debate-symbol[aria-pressed=true]{border-color:#7a9182}
+[data-oraclia-debate] .debate-symbol.is-dragging{z-index:20;box-shadow:0 5px 18px #0002;cursor:grabbing}
+[data-oraclia-debate] .debate-zone{padding:14px;min-height:128px;background:#f6f8f4;border:1px dashed #aab8ac;border-radius:10px}
+[data-oraclia-debate] .debate-zone.is-over{border-style:solid;border-color:#344d41}
+[data-oraclia-debate] .debate-chosen{display:flex;flex-wrap:wrap;gap:10px}
+[data-oraclia-debate] .debate-hint{font-size:14px;color:#687067;margin:12px 0}
+[data-oraclia-debate] .debate-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:18px}
+[data-oraclia-debate] .debate-go{padding:11px 16px;min-height:44px;border:1px solid #344d41;border-radius:6px;background:#344d41;color:#fff;cursor:pointer;font:inherit}
+[data-oraclia-debate] .debate-go:disabled,[data-oraclia-debate] .debate-symbol:disabled{opacity:.45;cursor:default}
+[data-oraclia-debate] .debate-selection{font-size:13px;color:#687067}
+[data-oraclia-debate] .debate-status{color:#b32337;margin:18px 0;font-size:16px;font-weight:700}
+[data-oraclia-debate] .debate-wait{display:block;background:#fff;color:#b32337;font-weight:700}
+[data-oraclia-debate] .debate-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+[data-oraclia-debate] .debate-result{border-top:1px solid #e0e5dd;padding-top:24px;margin-top:24px;scroll-margin-top:24px}
+[data-oraclia-debate] .debate-topic{font:400 24px/1.4 Georgia,serif;color:#20231f;margin:0 0 24px;white-space:pre-wrap}
+[data-oraclia-debate] .debate-turn{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;margin:0 0 22px}
+[data-oraclia-debate] .debate-speaker{font:400 28px/1.3 'Segoe UI Symbol','Apple Symbols',sans-serif;color:#171917}
+[data-oraclia-debate] .debate-turn p{margin:0;white-space:pre-wrap;color:#344d41;font:400 16px/1.75 system-ui,sans-serif}
+[data-oraclia-debate] button:focus-visible,[data-oraclia-debate] textarea:focus-visible{outline:2px solid #486d59;outline-offset:3px}
+.or-debate-cover{display:flex;align-items:center;justify-content:center;gap:25px;width:100%;height:100%;min-height:220px;background:#fff;color:#171917;font:400 52px/1.4 'Segoe UI Symbol','Apple Symbols',sans-serif}
+.or-cover-debate .or-cover-art{background:#fff;color:#171917}
+.or-debate-panel{border-top-color:#7a9182}
+@media(max-width:430px){[data-oraclia-debate] .debate-bank{gap:6px;grid-template-columns:repeat(auto-fit,minmax(44px,1fr))}[data-oraclia-debate] .debate-turn{gap:8px;grid-template-columns:32px minmax(0,1fr)}}

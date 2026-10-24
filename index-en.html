@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Oraclia is a space to think, converse, and shape ideas with time and discernment.">
   <title>Oraclia — Think, converse, create</title>
-  <link rel="stylesheet" href="styles.css?v=20261022theatrewait">
+  <link rel="stylesheet" href="styles.css?v=20261024debate">
 <style>
 footer.or-unified-footer{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;max-width:760px;margin:32px auto 0;padding:28px 24px 32px;border-top:1px solid #d8d8d4;background:transparent;color:#70716d;text-align:center;font:12px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
 footer.or-unified-footer p{margin:0;color:inherit;font:inherit;letter-spacing:normal}
@@ -16,8 +16,9 @@ footer.or-unified-footer .or-footer-mail:focus-visible{outline:2px solid #555653
 footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 </style>
 <script src="space-preview.js?v=20261022symbolfield" defer></script>
-<script src="theatre-preview.js?v=20261022theatrewait" defer></script>
+<script src="theatre-preview.js?v=20261024debate" defer></script>
 <link rel="stylesheet" href="fil-carousel.css?v=20261024fils"><script src="fil-carousel.js?v=20261024fils" defer></script>
+<link rel="stylesheet" href="debate.css?v=20261024debate"><script src="debate.js?v=20261024debate" defer></script>
 </head>
 <body>
   <header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="index-en.html">Home · Oraclia</a><nav class="or-language-switch" aria-label="Select language"><a href="index-ca.html" lang="ca">CA</a><a href="index.html" lang="es">ES</a><a href="index-en.html" lang="en" aria-current="page">EN</a></nav></div><nav class="or-header-nav" aria-label="Main navigation"><a href="index-en.html" aria-current="page">Home</a><a href="oraclia-en.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/en/">Biblioteca</a><a href="notes-en.html">Notes</a><a href="index-en.html#espais">Oraclia Spaces</a><a href="#contacte">Contact</a></nav></header>
@@ -78,10 +79,7 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
  </section>
 </div>
 
-<div class="or-cover-copy"><span class="or-cover-index">02</span><h3>Symbols in motion</h3><p>Four symbols, one moving thread.</p><a class="or-cover-enter" href="https://biblioteca-oraclia.onrender.com/espais/fils?lang=en">View larger <span aria-hidden="true">↗</span></a></div></article><article class="or-space-cover or-cover-theatre"><div class="or-cover-art"><div class="or-theatre-curtain" aria-hidden="true"><span class="or-curtain-top"></span><span class="or-curtain-left"></span><span class="or-curtain-right"></span><span class="or-curtain-cast"><span>◉</span><span>?</span><span>≡</span></span><span class="or-curtain-stage"></span></div></div><div class="or-cover-copy"><span class="or-cover-index">03</span><h3>Oraclia Theatre</h3><p>Life situations, scenes, and dialogues where symbols open up different ways of seeing.</p><button class="or-cover-enter or-theatre-open" id="or-theatre-open" type="button" aria-expanded="false" aria-controls="or-theatre-panel">Enter <span aria-hidden="true">↓</span></button></div></article></div><section class="or-theatre-panel" id="or-theatre-panel" aria-labelledby="or-theatre-title" hidden>
-<div class="or-theatre-heading"><h3 id="or-theatre-title">Oraclia Theatre</h3><button type="button" id="or-theatre-close">Close the Theatre ×</button></div>
-<form id="or-theatre-form"><label for="or-theatre-topic">Propose a situation</label><textarea id="or-theatre-topic" minlength="2" maxlength="2000" rows="4" placeholder="For example: two friends who have not met in a long time" aria-describedby="or-theatre-note" required></textarea><p id="or-theatre-note">Up to 2,000 characters. Describe the situation, who is involved and what happens.</p><button type="submit" id="or-theatre-generate">Create a scene →</button></form>
-<p id="or-theatre-status" role="status"></p><article class="or-theatre-result" id="or-theatre-result" aria-live="polite" aria-atomic="true" hidden></article><p class="or-theatre-context">A fictional scene created from the symbols of Oraclia.</p></section><p class="or-spaces-access">21 perspectives, Symbols in motion and Oraclia Theatre: three ways to explore Oraclia.</p></section>
+<div class="or-cover-copy"><span class="or-cover-index">02</span><h3>Symbols in motion</h3><p>Four symbols, one moving thread.</p><a class="or-cover-enter" href="https://biblioteca-oraclia.onrender.com/espais/fils?lang=en">View larger <span aria-hidden="true">↗</span></a></div></article><article class="or-space-cover or-cover-debate"><div class="or-cover-art"><div class="or-debate-cover" aria-hidden="true"><span>∞</span><span>?</span><span>▭</span></div></div><div class="or-cover-copy"><span class="or-cover-index">03</span><h3>Symbols in debate</h3><p>Suggest a topic, choose the symbols and hear them respond to one another.</p><button class="or-cover-enter or-theatre-open" id="or-theatre-open" type="button" aria-expanded="false" aria-controls="or-theatre-panel">Enter <span aria-hidden="true">↓</span></button></div></article></div><section class="or-theatre-panel or-debate-panel" id="or-theatre-panel" aria-labelledby="or-theatre-title" hidden><div class="or-theatre-heading"><h3 id="or-theatre-title">Symbols in debate</h3><button type="button" id="or-theatre-close">Close the debate ×</button></div><div data-oraclia-debate data-api-base="https://biblioteca-oraclia.onrender.com"></div></section><p class="or-spaces-access">21 perspectives, Symbols in motion and Symbols in debate: three ways to explore Oraclia.</p></section>
 
     <section class="method" aria-labelledby="method-title">
       <div class="method-copy"><p class="eyebrow">A way of working</p><h2 id="method-title">Time is part of thinking, too.</h2><p>There is no need to reach a conclusion immediately. We can first name what is happening, consider options, connect perspectives, and then decide or create.</p></div>
@@ -106,3 +104,4 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 </footer>
 </body>
 </html>
+

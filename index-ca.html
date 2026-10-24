@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Oraclia és un espai per pensar, conversar i donar forma a les idees amb temps i criteri.">
   <title>Oraclia — Pensar, conversar i crear</title>
-  <link rel="stylesheet" href="styles.css?v=20261022theatrewait">
+  <link rel="stylesheet" href="styles.css?v=20261024debate">
 <style>
 footer.or-unified-footer{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;max-width:760px;margin:32px auto 0;padding:28px 24px 32px;border-top:1px solid #d8d8d4;background:transparent;color:#70716d;text-align:center;font:12px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
 footer.or-unified-footer p{margin:0;color:inherit;font:inherit;letter-spacing:normal}
@@ -16,8 +16,9 @@ footer.or-unified-footer .or-footer-mail:focus-visible{outline:2px solid #555653
 footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 </style>
 <script src="space-preview.js?v=20261022symbolfield" defer></script>
-<script src="theatre-preview.js?v=20261022theatrewait" defer></script>
+<script src="theatre-preview.js?v=20261024debate" defer></script>
 <link rel="stylesheet" href="fil-carousel.css?v=20261024fils"><script src="fil-carousel.js?v=20261024fils" defer></script>
+<link rel="stylesheet" href="debate.css?v=20261024debate"><script src="debate.js?v=20261024debate" defer></script>
 </head>
 <body>
   <header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="index-ca.html">Inici · Oraclia</a><nav class="or-language-switch" aria-label="Selecciona l'idioma"><a href="index-ca.html" lang="ca" aria-current="page">CA</a><a href="index.html" lang="es">ES</a><a href="index-en.html" lang="en">EN</a></nav></div><nav class="or-header-nav" aria-label="Navegació principal"><a href="index-ca.html" aria-current="page">Inici</a><a href="oraclia-ca.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/">Biblioteca</a><a href="notes-ca.html">Notes</a><a href="index-ca.html#espais">Espais d’Oraclia</a><a href="#contacte">Contacte</a></nav></header>
@@ -78,10 +79,7 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
  </section>
 </div>
 
-<div class="or-cover-copy"><span class="or-cover-index">02</span><h3>Símbols en moviment</h3><p>Quatre símbols, un fil en moviment.</p><a class="or-cover-enter" href="https://biblioteca-oraclia.onrender.com/espais/fils?lang=ca">Veure en gran <span aria-hidden="true">↗</span></a></div></article><article class="or-space-cover or-cover-theatre"><div class="or-cover-art"><div class="or-theatre-curtain" aria-hidden="true"><span class="or-curtain-top"></span><span class="or-curtain-left"></span><span class="or-curtain-right"></span><span class="or-curtain-cast"><span>◉</span><span>?</span><span>≡</span></span><span class="or-curtain-stage"></span></div></div><div class="or-cover-copy"><span class="or-cover-index">03</span><h3>Teatre d’Oraclia</h3><p>Situacions de vida, escenes i diàlegs on els símbols obren diferents maneres de mirar.</p><button class="or-cover-enter or-theatre-open" id="or-theatre-open" type="button" aria-expanded="false" aria-controls="or-theatre-panel">Entrar <span aria-hidden="true">↓</span></button></div></article></div><section class="or-theatre-panel" id="or-theatre-panel" aria-labelledby="or-theatre-title" hidden>
-<div class="or-theatre-heading"><h3 id="or-theatre-title">Teatre d’Oraclia</h3><button type="button" id="or-theatre-close">Tancar el Teatre ×</button></div>
-<form id="or-theatre-form"><label for="or-theatre-topic">Proposa una situació</label><textarea id="or-theatre-topic" minlength="2" maxlength="2000" rows="4" placeholder="Per exemple: dues amigues que fa temps que no es veuen" aria-describedby="or-theatre-note" required></textarea><p id="or-theatre-note">Fins a 2.000 caràcters. Pots explicar la situació, qui hi participa i què passa.</p><button type="submit" id="or-theatre-generate">Crear una escena →</button></form>
-<p id="or-theatre-status" role="status"></p><article class="or-theatre-result" id="or-theatre-result" aria-live="polite" aria-atomic="true" hidden></article><p class="or-theatre-context">Una escena de ficció creada a partir dels símbols d’Oraclia.</p></section><p class="or-spaces-access">21 mirades, Símbols en moviment i Teatre d’Oraclia: tres maneres d’explorar Oraclia.</p></section>
+<div class="or-cover-copy"><span class="or-cover-index">02</span><h3>Símbols en moviment</h3><p>Quatre símbols, un fil en moviment.</p><a class="or-cover-enter" href="https://biblioteca-oraclia.onrender.com/espais/fils?lang=ca">Veure en gran <span aria-hidden="true">↗</span></a></div></article><article class="or-space-cover or-cover-debate"><div class="or-cover-art"><div class="or-debate-cover" aria-hidden="true"><span>∞</span><span>?</span><span>▭</span></div></div><div class="or-cover-copy"><span class="or-cover-index">03</span><h3>Símbols en debat</h3><p>Proposa un tema, tria els símbols i escolta com es responen.</p><button class="or-cover-enter or-theatre-open" id="or-theatre-open" type="button" aria-expanded="false" aria-controls="or-theatre-panel">Entrar <span aria-hidden="true">↓</span></button></div></article></div><section class="or-theatre-panel or-debate-panel" id="or-theatre-panel" aria-labelledby="or-theatre-title" hidden><div class="or-theatre-heading"><h3 id="or-theatre-title">Símbols en debat</h3><button type="button" id="or-theatre-close">Tancar el debat ×</button></div><div data-oraclia-debate data-api-base="https://biblioteca-oraclia.onrender.com"></div></section><p class="or-spaces-access">21 mirades, Símbols en moviment i Símbols en debat: tres maneres d’explorar Oraclia.</p></section>
 
     <section class="method" aria-labelledby="method-title">
       <div class="method-copy"><p class="eyebrow">Una manera de treballar</p><h2 id="method-title">El temps també forma part del pensament.</h2><p>No cal arribar de seguida a una conclusió. Primer podem formular què passa, observar opcions, relacionar perspectives i després decidir o crear.</p></div>
@@ -106,3 +104,4 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 </footer>
 </body>
 </html>
+
