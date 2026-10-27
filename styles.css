@@ -161,3 +161,8 @@ header.or-site-header{box-sizing:border-box;position:relative;display:flex;flex-
 @media(max-width:430px){.or-theatre-panel{padding:22px 18px}.or-theatre-heading h3{font-size:26px}}
 
 #or-theatre-status .or-theatre-wait-visual{color:#bd263b;font-weight:700}
+
+/* Fourth Oraclia space: Chronicle */
+@media(min-width:1100px){.or-space-covers{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.or-cover-copy{padding:21px}.or-cover-copy h3{font-size:clamp(22px,2vw,30px)}}
+@media(min-width:851px) and (max-width:1099px){.or-space-covers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.or-chronicle-art{flex-direction:column;gap:12px;background:#fff;color:#20201f}.or-chronicle-infinity{font:normal 90px/1 Georgia,serif;color:#b3262f}.or-chronicle-orbit{font:22px/1.2 Georgia,serif;letter-spacing:.2em;color:#555}
