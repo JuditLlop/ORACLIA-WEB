@@ -19,6 +19,15 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 <script src="theatre-preview.js?v=20261024debate" defer></script>
 <link rel="stylesheet" href="fil-carousel.css?v=20261024fils"><script src="fil-carousel.js?v=20261024fils" defer></script>
 <link rel="stylesheet" href="debate.css?v=20261024debate"><script src="debate.js?v=20261024debate" defer></script>
+
+<style>
+.or-propulsion{max-width:780px;margin:48px auto;padding:24px 20px 40px;text-align:center;color:#252525}
+.or-propulsion[hidden]{display:none!important}
+.or-propulsion h2{font-size:clamp(21px,4vw,31px);font-weight:500;margin:0 0 22px}
+.or-propulsion-video{display:block;width:100%;max-width:680px;height:auto;margin:0 auto 25px;background:transparent}
+.or-propulsion-lines{max-width:660px;margin:0 auto}
+.or-propulsion-lines p{font-size:clamp(15px,2.5vw,18px);line-height:1.65;margin:0 0 16px}
+</style>
 </head>
 <body>
   <header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="index-ca.html">Inici · Oraclia</a><nav class="or-language-switch" aria-label="Selecciona l'idioma"><a href="index-ca.html" lang="ca" aria-current="page">CA</a><a href="index.html" lang="es">ES</a><a href="index-en.html" lang="en">EN</a></nav></div><nav class="or-header-nav" aria-label="Navegació principal"><a href="index-ca.html" aria-current="page">Inici</a><a href="oraclia-ca.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/">Biblioteca</a><a href="notes-ca.html">Notes</a><a href="index-ca.html#espais">Espais d’Oraclia</a><a href="#contacte">Contacte</a></nav></header>
@@ -103,6 +112,17 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 <a class="or-footer-mail or-footer-instagram" href="https://www.instagram.com/koans_oraclia/" target="_blank" rel="noopener noreferrer" aria-label="Koans Oraclia a Instagram (s’obre en una pestanya nova)"><span>Koans Oraclia · Instagram</span><span aria-hidden="true">↗</span></a>
 <p class="or-footer-credit">Un projecte de Judit Llop Padrós, desenvolupat en col·laboració amb ChatGPT i el GPT Oraclia, a la plataforma d'OpenAI.</p>
 </footer>
+<section class="or-propulsion" aria-labelledby="or-propulsion-title" hidden>
+  <h2 id="or-propulsion-title">→ · L’Arca de la Propulsió</h2>
+  <video class="or-propulsion-video" autoplay muted loop playsinline preload="metadata" aria-label="L’Arca de la Propulsió"><source src="propulsio-web.mp4" type="video/mp4"></video>
+  <div class="or-propulsion-lines">
+    <p>Hi ha moviments que comencen abans de saber per què.</p>
+    <p>No tot el que ens mou sap encara cap on va.</p>
+    <p>El moviment no sempre segueix una direcció. De vegades, la descobreix.</p>
+  </div>
+</section>
+<script>document.querySelector('.or-propulsion-video').addEventListener('loadeddata',function(){this.closest('.or-propulsion').hidden=false},{once:true});</script>
+
 </body>
 </html>
 
