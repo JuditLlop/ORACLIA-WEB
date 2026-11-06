@@ -19,6 +19,15 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 <script src="theatre-preview.js?v=20261024debate" defer></script>
 <link rel="stylesheet" href="fil-carousel.css?v=20261024fils"><script src="fil-carousel.js?v=20261024fils" defer></script>
 <link rel="stylesheet" href="debate.css?v=20261024debate"><script src="debate.js?v=20261024debate" defer></script>
+
+<style>
+.or-propulsion{max-width:780px;margin:48px auto;padding:24px 20px 40px;text-align:center;color:#252525}
+.or-propulsion[hidden]{display:none!important}
+.or-propulsion h2{font-size:clamp(21px,4vw,31px);font-weight:500;margin:0 0 22px}
+.or-propulsion-video{display:block;width:100%;max-width:680px;height:auto;margin:0 auto 25px;background:transparent}
+.or-propulsion-lines{max-width:660px;margin:0 auto}
+.or-propulsion-lines p{font-size:clamp(15px,2.5vw,18px);line-height:1.65;margin:0 0 16px}
+</style>
 </head>
 <body>
   <header class="or-site-header"><div class="or-header-row"><a class="or-header-location" href="index-en.html">Home · Oraclia</a><nav class="or-language-switch" aria-label="Select language"><a href="index-ca.html" lang="ca">CA</a><a href="index.html" lang="es">ES</a><a href="index-en.html" lang="en" aria-current="page">EN</a></nav></div><nav class="or-header-nav" aria-label="Main navigation"><a href="index-en.html" aria-current="page">Home</a><a href="oraclia-en.html">Oraclia</a><a href="https://biblioteca-oraclia.onrender.com/en/">Biblioteca</a><a href="notes-en.html">Notes</a><a href="index-en.html#espais">Oraclia Spaces</a><a href="#contacte">Contact</a></nav></header>
@@ -103,6 +112,17 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 <a class="or-footer-mail or-footer-instagram" href="https://www.instagram.com/koans_oraclia/" target="_blank" rel="noopener noreferrer" aria-label="Koans Oraclia on Instagram (opens in a new tab)"><span>Koans Oraclia · Instagram</span><span aria-hidden="true">↗</span></a>
 <p class="or-footer-credit">A project by Judit Llop Padrós, developed in collaboration with ChatGPT and GPT Oraclia on OpenAI's platform.</p>
 </footer>
+<section class="or-propulsion" aria-labelledby="or-propulsion-title" hidden>
+  <h2 id="or-propulsion-title">→ · The Ark of Propulsion</h2>
+  <video class="or-propulsion-video" autoplay muted loop playsinline preload="metadata" aria-label="The Ark of Propulsion"><source src="propulsio-web.mp4" type="video/mp4"></video>
+  <div class="or-propulsion-lines">
+    <p>Some movements begin before we know why.</p>
+    <p>Not everything that moves us knows where it is going yet.</p>
+    <p>Movement does not always follow a direction. Sometimes, it discovers one.</p>
+  </div>
+</section>
+<script>document.querySelector('.or-propulsion-video').addEventListener('loadeddata',function(){this.closest('.or-propulsion').hidden=false},{once:true});</script>
+
 </body>
 </html>
 
