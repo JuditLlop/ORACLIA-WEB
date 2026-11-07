@@ -121,7 +121,34 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
     <p>El movimiento no siempre sigue una dirección. A veces, la descubre.</p>
   </div>
 </section>
-<script>document.querySelector('.or-propulsion-video').addEventListener('loadeddata',function(){this.closest('.or-propulsion').hidden=false},{once:true});</script>
+<script>
+(function(){
+  const video=document.querySelector('.or-propulsion-video');
+  if(!video)return;
+  video.muted=true;
+  video.defaultMuted=true;
+  video.setAttribute('muted','');
+  video.setAttribute('playsinline','');
+  video.setAttribute('webkit-playsinline','');
+  video.autoplay=true;
+  video.loop=true;
+  const section=video.closest('.or-propulsion');
+  function reveal(){section.hidden=false;}
+  function start(){
+    video.muted=true;
+    const attempt=video.play();
+    if(attempt&&typeof attempt.catch==='function'){
+      attempt.then(function(){video.controls=false;}).catch(function(){video.controls=true;});
+    }
+  }
+  video.addEventListener('loadeddata',function(){reveal();start();});
+  video.addEventListener('canplay',function(){reveal();if(video.paused)start();});
+  video.addEventListener('error',function(){reveal();video.controls=true;});
+  window.addEventListener('pageshow',function(){if(video.readyState>=2)start();});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&video.readyState>=2&&video.paused)start();});
+  if(video.readyState>=2){reveal();start();}
+})();
+</script>
 
 </body>
 </html>
