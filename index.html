@@ -150,6 +150,35 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 })();
 </script>
 
+
+<section class="or-open-eye or-propulsion" aria-labelledby="or-open-eye-title" hidden>
+  <h2 id="or-open-eye-title">◉ · El Arca del Ojo Abierto</h2>
+  <video class="or-open-eye-video or-propulsion-video" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-label="El Arca del Ojo Abierto"><source src="ull-obert-web.mp4" type="video/mp4"></video>
+  <div class="or-propulsion-lines">
+    <p>MIRAR NO ES LO MISMO QUE VER.</p>
+    <p>A VECES, LO MÁS IMPORTANTE PASA DESAPERCIBIDO.</p>
+    <p>¿Y SI VUELVO A MIRAR?</p>
+  </div>
+</section>
+<script>
+(function(){
+ const video=document.querySelector('.or-open-eye-video');
+ if(!video)return;
+ video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
+ const section=video.closest('.or-open-eye');
+ function start(){
+  video.muted=true;
+  const promise=video.play();
+  if(promise&&typeof promise.catch==='function')promise.then(function(){video.controls=false;}).catch(function(){video.controls=true;});
+ }
+ video.addEventListener('loadeddata',function(){section.hidden=false;start();});
+ video.addEventListener('canplay',function(){section.hidden=false;if(video.paused)start();});
+ video.addEventListener('error',function(){section.hidden=false;video.controls=true;});
+ window.addEventListener('pageshow',function(){if(video.readyState>=2)start();});
+ document.addEventListener('visibilitychange',function(){if(!document.hidden&&video.readyState>=2&&video.paused)start();});
+ if(video.readyState>=2){section.hidden=false;start();}
+})();
+</script>
 </body>
 </html>
 
