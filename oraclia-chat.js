@@ -161,7 +161,6 @@
     if (role === 'assistant') appendAnswerText(body, text);
     else body.textContent = text;
     article.appendChild(body);
-    if (role === 'assistant') addKey(article, key);
     messages.appendChild(article);
     if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
