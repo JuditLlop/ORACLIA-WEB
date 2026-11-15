@@ -3,6 +3,64 @@
   'use strict';
   const API = 'https://oraclia-api.onrender.com/oraclia';
   const STORAGE = 'oraclia.conversation.v1';
+  const pageLanguage = (document.documentElement.lang || 'es').toLowerCase().split('-')[0];
+  const traceTranslations = {
+    ca: {
+      show: '◉ Veure la traça', record: 'Registre',
+      recordText: 'Lectura registrada abans de generar la resposta. És una proposta del sistema, revisable.',
+      symbols: 'Símbols', noSymbols: 'Sense desplegament simbòlic',
+      observed: 'Allò que aportes · lectura del sistema', reading: 'Moviment proposat',
+      form: 'Forma', change: 'Canvi de símbols', kept: 'Es mantenen', added: 'Entren', removed: 'Surten',
+      alternative: 'Una altra lectura possible', absence: 'Absència proposada',
+      provenance: 'Procedència',
+      provenanceText: 'Tu aportes el missatge i les revisions. El sistema proposa la lectura simbòlica i la LLM en genera l’expressió. No es pressuposa que acceptis la proposta.',
+      feedback: 'El teu retorn sobre la proposta anterior',
+      feedbackText: 'Classificació del lector a partir de les teves paraules, revisable.',
+      prepared: 'Preparada', usage: 'Ús registrat', size: 'Mida d’aquesta clau',
+      input: 'entrada', output: 'sortida', cached: 'entrada en memòria cau', reasoning: 'raonament',
+      usageNote: 'inclou raonament quan n’hi ha',
+      statuses: {accepted: 'Acceptada', rejected: 'Rebutjada', revised: 'Revisada'},
+      stages: {reader: 'Lector', opening: 'Obertura', compositor: 'Compositor'},
+      forms: {direct: 'Directa', question: 'Pregunta', contrast: 'Contrast', dialogue: 'Diàleg', debate: 'Debat', scene: 'Escena', aphorism: 'Aforisme', koan: 'Koan', scientific: 'Científica', play: 'Joc', surprise: 'Sorpresa', silence: 'Silenci'}
+    },
+    es: {
+      show: '◉ Ver la traza', record: 'Registro',
+      recordText: 'Lectura registrada antes de generar la respuesta. Es una propuesta del sistema, revisable.',
+      symbols: 'Símbolos', noSymbols: 'Sin despliegue simbólico',
+      observed: 'Lo que traes · lectura del sistema', reading: 'Movimiento propuesto',
+      form: 'Forma', change: 'Cambio de símbolos', kept: 'Se mantienen', added: 'Entran', removed: 'Salen',
+      alternative: 'Otra lectura posible', absence: 'Ausencia propuesta',
+      provenance: 'Procedencia',
+      provenanceText: 'Tú aportas el mensaje y las revisiones. El sistema propone la lectura simbólica y la LLM genera la expresión. No se presupone que aceptes la propuesta.',
+      feedback: 'Tu retorno sobre la propuesta anterior',
+      feedbackText: 'Clasificación del lector a partir de tus palabras, revisable.',
+      prepared: 'Preparada', usage: 'Uso registrado', size: 'Tamaño de esta clave',
+      input: 'entrada', output: 'salida', cached: 'entrada en caché', reasoning: 'razonamiento',
+      usageNote: 'incluye razonamiento cuando lo hay',
+      statuses: {accepted: 'Aceptada', rejected: 'Rechazada', revised: 'Revisada'},
+      stages: {reader: 'Lector', opening: 'Apertura', compositor: 'Compositor'},
+      forms: {direct: 'Directa', question: 'Pregunta', contrast: 'Contraste', dialogue: 'Diálogo', debate: 'Debate', scene: 'Escena', aphorism: 'Aforismo', koan: 'Koan', scientific: 'Científica', play: 'Juego', surprise: 'Sorpresa', silence: 'Silencio'}
+    },
+    en: {
+      show: '◉ View trace', record: 'Record',
+      recordText: 'Reading recorded before generating the response. It is a revisable system proposal.',
+      symbols: 'Symbols', noSymbols: 'No symbolic deployment',
+      observed: 'What you bring · system reading', reading: 'Proposed movement',
+      form: 'Form', change: 'Symbol changes', kept: 'Retained', added: 'Added', removed: 'Removed',
+      alternative: 'Another possible reading', absence: 'Proposed absence',
+      provenance: 'Provenance',
+      provenanceText: 'You provide the message and revisions. The system proposes the symbolic reading and the LLM generates its expression. Your acceptance of the proposal is not assumed.',
+      feedback: 'Your feedback on the previous proposal',
+      feedbackText: 'Revisable reader classification based on your words.',
+      prepared: 'Prepared', usage: 'Recorded usage', size: 'Size of this key',
+      input: 'input', output: 'output', cached: 'cached input', reasoning: 'reasoning',
+      usageNote: 'includes reasoning when applicable',
+      statuses: {accepted: 'Accepted', rejected: 'Rejected', revised: 'Revised'},
+      stages: {reader: 'Reader', opening: 'Opening', compositor: 'Compositor'},
+      forms: {direct: 'Direct', question: 'Question', contrast: 'Contrast', dialogue: 'Dialogue', debate: 'Debate', scene: 'Scene', aphorism: 'Aphorism', koan: 'Koan', scientific: 'Scientific', play: 'Play', surprise: 'Surprise', silence: 'Silence'}
+    }
+  };
+  const traceText = traceTranslations[pageLanguage] || traceTranslations.es;
   const form = document.getElementById('or-form');
   const input = document.getElementById('or-input');
   const send = document.getElementById('or-send');
@@ -51,28 +109,29 @@
   function addKey(article, key) {
     if (!key || typeof key !== 'object') return;
     const details = document.createElement('details'); details.className = 'or-key';
-    const summary = document.createElement('summary'); summary.textContent = '◉ Ver la traza';
+    const t = traceText;
+    const summary = document.createElement('summary'); summary.textContent = t.show;
     const dl = document.createElement('dl');
-    field(dl, 'Registro', 'Lectura registrada antes de generar la respuesta. Es una propuesta del sistema, revisable.');
-    field(dl, 'Símbolos', (key.symbols || []).join(' · ') || 'Sin despliegue simbólico');
-    field(dl, 'Lo que traes · lectura del sistema', key.observed);
-    field(dl, 'Movimiento propuesto', key.reading);
+    field(dl, t.record, t.recordText);
+    field(dl, t.symbols, (key.symbols || []).join(' · ') || t.noSymbols);
+    field(dl, t.observed, key.observed);
+    field(dl, t.reading, key.reading);
     (key.relations || []).forEach(r => field(dl, (r.members || []).join(' · '), r.description));
-    field(dl, 'Forma', key.form);
-    field(dl, 'Cambio de símbolos', key.symbol_change ?
-      `Se mantienen: ${key.symbol_change.kept.join(' · ') || '—'}\nEntran: ${key.symbol_change.added.join(' · ') || '—'}\nSalen: ${key.symbol_change.removed.join(' · ') || '—'}` : null);
-    (key.alternatives || []).forEach(a => field(dl, 'Otra lectura posible', a));
-    (key.absences || []).forEach(a => field(dl, `Ausencia propuesta · ${a.symbol}`, `${a.evidence}\n${a.effect}`));
-    field(dl, 'Procedencia', 'Tú aportas el mensaje y las revisiones. El sistema propone la lectura simbólica y la LLM genera la expresión. No se presupone que aceptes la propuesta.');
+    field(dl, t.form, t.forms[key.form] || key.form);
+    field(dl, t.change, key.symbol_change ?
+      `${t.kept}: ${key.symbol_change.kept.join(' · ') || '—'}\n${t.added}: ${key.symbol_change.added.join(' · ') || '—'}\n${t.removed}: ${key.symbol_change.removed.join(' · ') || '—'}` : null);
+    (key.alternatives || []).forEach(a => field(dl, t.alternative, a));
+    (key.absences || []).forEach(a => field(dl, `${t.absence} · ${a.symbol}`, `${a.evidence}\n${a.effect}`));
+    field(dl, t.provenance, t.provenanceText);
     if (key.feedback_on_previous) {
-      field(dl, 'Tu retorno sobre la propuesta anterior', `${key.feedback_on_previous.status}: «${key.feedback_on_previous.evidence}»\nClasificación del lector a partir de tus palabras, revisable.`);
+      field(dl, t.feedback, `${t.statuses[key.feedback_on_previous.status] || key.feedback_on_previous.status}: «${key.feedback_on_previous.evidence}»\n${t.feedbackText}`);
     }
-    field(dl, 'Preparada', key.prepared_at);
+    field(dl, t.prepared, key.prepared_at);
     if (key.usage) {
-      field(dl, 'Uso registrado', `${key.usage.input_tokens} tokens de entrada · ${key.usage.output_tokens} de salida (incluye razonamiento cuando lo hay).`);
-      (key.usage.stages || []).forEach(s => field(dl, s.stage, `${s.model} · entrada ${s.input_tokens} · salida ${s.output_tokens} · entrada en caché ${s.cached_input_tokens} · razonamiento ${s.reasoning_tokens}`));
+      field(dl, t.usage, `${key.usage.input_tokens} tokens (${t.input}) · ${key.usage.output_tokens} (${t.output}); ${t.usageNote}.`);
+      (key.usage.stages || []).forEach(s => field(dl, t.stages[s.stage] || s.stage, `${s.model} · ${t.input} ${s.input_tokens} · ${t.output} ${s.output_tokens} · ${t.cached} ${s.cached_input_tokens} · ${t.reasoning} ${s.reasoning_tokens}`));
     }
-    field(dl, 'Tamaño de esta clave', key.bytes ? `${key.bytes} bytes` : null);
+    field(dl, t.size, key.bytes ? `${key.bytes} bytes` : null);
     details.append(summary, dl); article.appendChild(details);
   }
 
@@ -292,3 +351,4 @@
     storageError = ''; redraw(); status.textContent = 'Datos guardados borrados.';
   });
 })();
+
