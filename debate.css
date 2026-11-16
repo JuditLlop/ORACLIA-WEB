@@ -31,3 +31,8 @@
 .or-cover-debate .or-cover-art{background:#fff;color:#171917}
 .or-debate-panel{border-top-color:#7a9182}
 @media(max-width:430px){[data-oraclia-debate] .debate-bank{gap:6px;grid-template-columns:repeat(auto-fit,minmax(44px,1fr))}[data-oraclia-debate] .debate-turn{gap:8px;grid-template-columns:32px minmax(0,1fr)}}
+
+/* Topic-only symbolic stage */
+[data-oraclia-debate] .debate-form .debate-go{margin-top:14px}
+[data-oraclia-debate] .debate-setting{font:italic 16px/1.7 Georgia,serif;color:#536358;margin:0 0 16px}
+[data-oraclia-debate] .debate-cast{font-size:13px;letter-spacing:.03em;color:#687067;margin:0 0 26px}
