@@ -1,48 +1,34 @@
 'use strict';
 (()=>{
  const alphabet=['∞','†','◉','⇡','▭','○','→','〰','✧','?','⊘','☲','∆','÷','≈','✛','⇤','≋','()','Y','≡'];
- const texts={
- ca:{label:'De què vols que parlin?',placeholder:'Escriu un tema o explica què està passant…',note:'Fins a 2.000 caràcters.',bank:'Tria els símbols',zone:'Debaten aquests símbols',drop:'Arrossega’ls aquí o toca’ls per afegir-los.',choose:'Tria almenys dos símbols.',ready:n=>n+' símbols a punt',add:'Afegir al debat',remove:'Treure del debat',go:'Obrir el debat →',wait:'Un tema, diferents mirades… els símbols estan trobant què dir-se.',error:'No s’ha pogut preparar el debat. Torna-ho a provar.',limit:'Has fet moltes proves seguides. Espera un minut i torna-ho a provar.',invalid:'Escriu un tema d’entre 2 i 2.000 caràcters i tria almenys dos símbols.',timeout:'El debat està trigant massa. Torna-ho a provar.',topic:'Tema',context:'Una conversa generada des dels camps dels símbols que has triat.',names:['Possibilitat','Focus','Percepció','Vida','Límit','Silenci','Propulsió','Ritme','Energia','Dubte','DESTEM','Ombra viva','Descentrament','Últim gest','Mesura','Cos','Desaprendre','Reflex relacional','Fet','Coexistència','Tercer espai']},
- es:{label:'¿De qué quieres que hablen?',placeholder:'Escribe un tema o explica qué está pasando…',note:'Hasta 2.000 caracteres.',bank:'Elige los símbolos',zone:'Debaten estos símbolos',drop:'Arrástralos aquí o tócalos para añadirlos.',choose:'Elige al menos dos símbolos.',ready:n=>n+' símbolos preparados',add:'Añadir al debate',remove:'Quitar del debate',go:'Abrir el debate →',wait:'Un tema, distintas miradas… los símbolos están encontrando qué decirse.',error:'No se ha podido preparar el debate. Vuelve a intentarlo.',limit:'Has hecho muchas pruebas seguidas. Espera un minuto y vuelve a intentarlo.',invalid:'Escribe un tema de entre 2 y 2.000 caracteres y elige al menos dos símbolos.',timeout:'El debate está tardando demasiado. Vuelve a intentarlo.',topic:'Tema',context:'Una conversación generada desde los campos de los símbolos que has elegido.',names:['Posibilidad','Foco','Percepción','Vida','Límite','Silencio','Propulsión','Ritmo','Energía','Duda','DESTEM','Sombra viva','Descentramiento','Último gesto','Medida','Cuerpo','Desaprender','Reflejo relacional','Hecho','Coexistencia','Tercer espacio']},
- en:{label:'What would you like them to discuss?',placeholder:'Enter a topic or describe what is happening…',note:'Up to 2,000 characters.',bank:'Choose the symbols',zone:'These symbols are debating',drop:'Drag them here or tap to add them.',choose:'Choose at least two symbols.',ready:n=>n+' symbols ready',add:'Add to the debate',remove:'Remove from the debate',go:'Open the debate →',wait:'One topic, different perspectives… the symbols are finding what to say to one another.',error:'The debate could not be prepared. Please try again.',limit:'You have tried several times in a row. Wait a minute and try again.',invalid:'Enter a topic of 2 to 2,000 characters and choose at least two symbols.',timeout:'The debate is taking too long. Please try again.',topic:'Topic',context:'A conversation generated from the fields of the symbols you chose.',names:['Possibility','Focus','Perception','Life','Boundary','Silence','Propulsion','Rhythm','Energy','Doubt','DESTEM','Living shadow','Decentring','Last gesture','Measure','Body','Unlearning','Relational reflection','Fact','Coexistence','Third space']}
+ const t={
+ ca:{label:'Quin tema vols posar a debat?',placeholder:'Escriu un tema o una situació…',go:'Obrir el debat',wait:'Els símbols llegeixen el tema i preparen una escena…',error:'No s’ha pogut preparar el debat. Torna-ho a provar.',limit:'Has fet moltes proves seguides. Espera un minut.',invalid:'Escriu un tema entre 2 i 2.000 caràcters.',timeout:'El debat està trigant massa.',topic:'Tema',cast:'Símbols que han entrat en escena'},
+ es:{label:'¿Qué tema quieres poner a debate?',placeholder:'Escribe un tema o una situación…',go:'Abrir el debate',wait:'Los símbolos leen el tema y preparan una escena…',error:'No se ha podido preparar el debate. Vuelve a intentarlo.',limit:'Has hecho demasiadas pruebas seguidas. Espera un minuto.',invalid:'Escribe un tema de 2 a 2.000 caracteres.',timeout:'El debate está tardando demasiado.',topic:'Tema',cast:'Símbolos que entran en escena'},
+ en:{label:'What topic would you like to debate?',placeholder:'Write a topic or situation…',go:'Open the debate',wait:'The symbols are reading the topic and preparing a scene…',error:'Could not prepare the debate. Please try again.',limit:'Too many requests. Wait a minute.',invalid:'Enter a topic between 2 and 2,000 characters.',timeout:'The debate is taking too long.',topic:'Topic',cast:'Symbols entering the scene'}
  };
- document.querySelectorAll('[data-oraclia-debate]').forEach((root,index)=>{
-  const lang=texts[document.documentElement.lang]?document.documentElement.lang:'ca',t=texts[lang];
-  const make=(tag,className,text)=>{const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;};
-  const form=make('form','debate-form'),label=make('label','',t.label),input=make('textarea'),note=make('p','debate-note',t.note);
-  input.id='debate-topic-'+index;input.minLength=2;input.maxLength=2000;input.rows=3;input.required=true;input.placeholder=t.placeholder;input.setAttribute('aria-describedby','debate-note-'+index);note.id='debate-note-'+index;label.htmlFor=input.id;
-  const board=make('div','debate-board'),bankLabel=make('p','debate-label',t.bank),bank=make('div','debate-bank'),zone=make('div','debate-zone'),zoneLabel=make('p','debate-label',t.zone),chosen=make('div','debate-chosen'),hint=make('p','debate-hint',t.drop);
-  bank.setAttribute('role','group');bank.setAttribute('aria-label',t.bank);chosen.setAttribute('role','group');chosen.setAttribute('aria-label',t.zone);zone.append(zoneLabel,chosen,hint);board.append(bankLabel,bank,zone);
-  const action=make('div','debate-actions'),go=make('button','debate-go',t.go),selection=make('span','debate-selection',t.choose),status=make('p','debate-status'),result=make('article','debate-result'),context=make('p','debate-note',t.context);
-  go.type='submit';go.disabled=true;selection.setAttribute('role','status');status.setAttribute('role','status');result.setAttribute('aria-live','polite');result.hidden=true;action.append(go,selection);form.append(label,input,note,board,action);root.replaceChildren(form,status,result,context);
-  let selected=[],busy=false,suppressClickUntil=0;
-  function invalidate(){result.hidden=true;result.replaceChildren();status.replaceChildren();}
-  function toggle(g){if(busy)return;const focused=document.activeElement?.dataset.glyph===g;selected=selected.includes(g)?selected.filter(x=>x!==g):[...selected,g];invalidate();render();if(focused)root.querySelectorAll('[data-glyph]').forEach(b=>{if(b.dataset.glyph===g)b.focus({preventScroll:true});});}
-  function buttonFor(g){
-   const b=make('button','debate-symbol',g),name=t.names[alphabet.indexOf(g)];b.type='button';b.dataset.glyph=g;b.disabled=busy;b.title=name;b.setAttribute('aria-label',name+' · '+(selected.includes(g)?t.remove:t.add));b.setAttribute('aria-pressed',String(selected.includes(g)));let drag=null;
-   function finish(){drag=null;b.style.transform='';b.classList.remove('is-dragging');zone.classList.remove('is-over');}
-   b.addEventListener('pointerdown',e=>{if(busy||e.button!==0)return;drag={x:e.clientX,y:e.clientY,moved:false};b.setPointerCapture(e.pointerId);});
-   b.addEventListener('pointermove',e=>{if(!drag)return;let dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>6)drag.moved=true;if(!drag.moved)return;const bounds=root.getBoundingClientRect(),box=b.getBoundingClientRect(),baseX=box.left-(parseFloat(b.dataset.dx)||0),baseY=box.top-(parseFloat(b.dataset.dy)||0);dx=Math.max(bounds.left-baseX,Math.min(bounds.right-baseX-box.width,dx));dy=Math.max(bounds.top-baseY,Math.min(bounds.bottom-baseY-box.height,dy));b.dataset.dx=String(dx);b.dataset.dy=String(dy);b.style.transform=`translate(${dx}px,${dy}px)`;b.classList.add('is-dragging');const z=zone.getBoundingClientRect();zone.classList.toggle('is-over',e.clientX>=z.left&&e.clientX<=z.right&&e.clientY>=z.top&&e.clientY<=z.bottom);});
-   b.addEventListener('pointerup',e=>{if(!drag)return;const moved=drag.moved;finish();b.dataset.dx='0';b.dataset.dy='0';if(!moved)return;suppressClickUntil=performance.now()+350;const z=zone.getBoundingClientRect(),inside=e.clientX>=z.left&&e.clientX<=z.right&&e.clientY>=z.top&&e.clientY<=z.bottom;if((inside&&!selected.includes(g))||(!inside&&selected.includes(g)))toggle(g);});
-   b.addEventListener('pointercancel',()=>{finish();b.dataset.dx='0';b.dataset.dy='0';});b.addEventListener('lostpointercapture',finish);
-   b.addEventListener('click',e=>{if(e.detail!==0&&performance.now()<suppressClickUntil)return;toggle(g);});return b;
-  }
-  function render(){bank.replaceChildren(...alphabet.filter(g=>!selected.includes(g)).map(buttonFor));chosen.replaceChildren(...selected.map(buttonFor));hint.hidden=selected.length>0;go.disabled=busy||selected.length<2;selection.textContent=selected.length<2?t.choose:t.ready(selected.length);}
-  function wait(){const spoken=make('span','debate-sr',t.wait),visual=make('span','debate-wait');visual.setAttribute('aria-hidden','true');status.replaceChildren(spoken,visual);const words=t.wait.split(/\s+/);let n=0,timer;const next=()=>{visual.textContent=words.slice(0,++n).join(' ');if(n<words.length)timer=setTimeout(next,850);};next();return ()=>clearTimeout(timer);}
-  input.addEventListener('input',invalidate);
+ const make=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
+ document.querySelectorAll('[data-oraclia-debate]').forEach((root,i)=>{
+  const lang=t[document.documentElement.lang]?document.documentElement.lang:'ca',v=t[lang];
+  const form=make('form','debate-form'),label=make('label','',v.label),input=make('textarea'),go=make('button','debate-go',v.go),status=make('p','debate-status'),result=make('article','debate-result');
+  input.id='debate-topic-'+i;label.htmlFor=input.id;input.required=true;input.minLength=2;input.maxLength=2000;input.rows=3;input.placeholder=v.placeholder;
+  go.type='submit';result.hidden=true;result.setAttribute('aria-live','polite');status.setAttribute('role','status');
+  form.append(label,input,go);root.replaceChildren(form,status,result);
+  let busy=false;input.addEventListener('input',()=>{result.hidden=true;result.replaceChildren();status.textContent='';});
   form.addEventListener('submit',async e=>{
-   e.preventDefault();if(busy)return;const topic=input.value.trim(),participants=[...selected];if(topic.length<2||topic.length>2000||participants.length<2){status.textContent=t.invalid;return;}
-   invalidate();busy=true;input.disabled=true;form.setAttribute('aria-busy','true');render();input.blur();const stop=wait(),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),120000);
+   e.preventDefault();if(busy)return;const topic=input.value.trim();if(topic.length<2||topic.length>2000){status.textContent=v.invalid;return;}
+   busy=true;input.disabled=true;go.disabled=true;result.hidden=true;result.replaceChildren();status.textContent=v.wait;
+   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),120000);
    try{
-    const base=root.dataset.apiBase||'';const response=await fetch(base+'/api/public/debate/generate',{method:'POST',credentials:'omit',signal:controller.signal,headers:{'Content-Type':'application/json','X-Library-Language':lang},body:JSON.stringify({topic,symbols:participants})});
-    let data;try{data=await response.json();}catch{throw Error(t.error);}if(!response.ok)throw Error(response.status===429?t.limit:response.status===422?t.invalid:t.error);
-    if(data?.topic!==topic||!Array.isArray(data.symbols)||JSON.stringify(data.symbols)!==JSON.stringify(participants)||!Array.isArray(data.dialogue)||data.dialogue.length!==participants.length*2)throw Error(t.error);
-    const counts=new Map(participants.map(g=>[g,0]));for(const turn of data.dialogue){if(!counts.has(turn?.speaker)||typeof turn.line!=='string'||!turn.line.trim())throw Error(t.error);counts.set(turn.speaker,counts.get(turn.speaker)+1);}if([...counts.values()].some(n=>n!==2))throw Error(t.error);
-    const heading=make('h4','debate-topic');heading.append(document.createTextNode(t.topic+': '+topic));const fragment=document.createDocumentFragment();fragment.append(heading);
-    for(const turn of data.dialogue){const row=make('div','debate-turn'),speaker=make('span','debate-speaker',turn.speaker),line=make('p','',turn.line);speaker.setAttribute('aria-label',t.names[alphabet.indexOf(turn.speaker)]);row.append(speaker,line);fragment.append(row);}
-    result.replaceChildren(fragment);result.hidden=false;status.replaceChildren();if(!root.closest('[hidden]'))result.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-   }catch(error){status.textContent=error.name==='AbortError'?t.timeout:error.message||t.error;}
-   finally{clearTimeout(timeout);stop();busy=false;input.disabled=false;form.setAttribute('aria-busy','false');render();}
-  });render();
+    const response=await fetch((root.dataset.apiBase||'')+'/api/public/debate/generate',{method:'POST',credentials:'omit',signal:controller.signal,headers:{'Content-Type':'application/json','X-Library-Language':lang},body:JSON.stringify({topic})});
+    const data=await response.json();if(!response.ok)throw Error(response.status===429?v.limit:v.error);
+    if(data?.topic!==topic||!Array.isArray(data.symbols)||data.symbols.length<2||data.symbols.length>4||new Set(data.symbols).size!==data.symbols.length||data.symbols.some(g=>!alphabet.includes(g))||typeof data.title!=='string'||typeof data.setting!=='string'||!Array.isArray(data.dialogue)||data.dialogue.length<8)throw Error(v.error);
+    const speakers=new Set(data.symbols);if(data.dialogue.some(x=>!speakers.has(x?.speaker)||typeof x.line!=='string'||!x.line.trim()))throw Error(v.error);
+    const heading=make('h4','debate-topic',data.title),scene=make('p','debate-setting',data.setting),cast=make('p','debate-cast',v.cast+': '+data.symbols.join(' · '));
+    result.append(heading,scene,cast);
+    for(const turn of data.dialogue){const row=make('div','debate-turn'),speaker=make('span','debate-speaker',turn.speaker),line=make('p','',turn.line);row.append(speaker,line);result.append(row);}
+    result.hidden=false;status.textContent='';
+   }catch(err){status.textContent=err.name==='AbortError'?v.timeout:err.message||v.error;}
+   finally{clearTimeout(timeout);busy=false;input.disabled=false;go.disabled=false;}
+  });
  });
 })();
