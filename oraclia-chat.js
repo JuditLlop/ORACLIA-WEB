@@ -162,11 +162,13 @@
     else body.textContent = text;
     article.appendChild(body);
     messages.appendChild(article);
+    document.getElementById("or-lab-empty").hidden = true;
     if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
   function redraw() {
     messages.replaceChildren();
+    document.getElementById("or-lab-empty").hidden = state.memory.length > 0;
     for (const turn of state.memory) {
       if (typeof turn.user === 'string') addMessage('user', turn.user, null, false);
       if (typeof turn.assistant === 'string') addMessage('assistant', turn.assistant, state.movementKeys[turn.turn_id], false);
@@ -181,7 +183,11 @@
 
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE) || 'null');
-    if (saved && saved.version === 1 && Array.isArray(saved.memory) && saved.movementKeys && Array.isArray(saved.archives)) state = saved;
+    if (saved && saved.version === 1 && Array.isArray(saved.memory) && saved.movementKeys && Array.isArray(saved.archives)) {
+      state.archives = [...saved.archives];
+      if (saved.memory.length) state.archives.push({saved_at: new Date().toISOString(), memory: saved.memory, movementKeys: saved.movementKeys, continuityKey: saved.continuityKey || null});
+      save();
+    }
   } catch (_) { storageError = 'No se ha podido recuperar el registro guardado. Puedes continuar y guardar una copia.'; }
   redraw();
   status.textContent = storageError || (state.memory.length ? 'Conversación recuperada de este navegador.' : '');
