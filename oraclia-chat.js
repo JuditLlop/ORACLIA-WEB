@@ -157,10 +157,14 @@
     if (role === 'assistant') {
       const label = document.createElement('span'); label.className = 'or-message-label'; label.textContent = 'Oraclia'; article.appendChild(label);
     }
-    const body = document.createElement('div');
+    const body = document.createElement('div'); body.className = 'or-message-body';
     if (role === 'assistant') appendAnswerText(body, text);
     else body.textContent = text;
     article.appendChild(body);
+    const share = document.createElement('button'); share.type='button'; share.className='or-share-message';
+    share.textContent='Compartir';
+    share.addEventListener('click',()=>document.dispatchEvent(new CustomEvent('oraclia-share',{detail:{text:body.innerText}})));
+    article.appendChild(share);
     messages.appendChild(article);
     document.getElementById("or-lab-empty").hidden = true;
     if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'start'});
