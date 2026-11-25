@@ -204,8 +204,11 @@
   status.textContent = storageError || (state.memory.length ? 'Conversación recuperada de este navegador.' : '');
 
   // A shared link seeds ONLY the approved pair. Existing conversations stay archived locally.
+  let sharedLoadPending = false;
+  function loadSharedExcerpt() {
   const sharedId = new URLSearchParams(location.hash.slice(1)).get('shared');
-  if (sharedId) {
+  if (!sharedId || sharedLoadPending || send.disabled) return;
+  sharedLoadPending = true;
     const text = ({
       ca:{loading:'Carregant el fragment compartit…',ready:'Conversa iniciada a partir d’un fragment compartit. La continuació és independent; qui l’ha compartit no la veu.',error:'Aquest enllaç no està disponible, ha caducat o s’ha retirat. Pots començar una conversa nova.'},
       es:{loading:'Cargando el fragmento compartido…',ready:'Conversación iniciada a partir de un fragmento compartido. La continuación es independiente; quien lo compartió no la ve.',error:'Este enlace no está disponible, ha caducado o se ha retirado. Puedes empezar una conversación nueva.'},
@@ -221,16 +224,20 @@
         if (!response.ok) throw Error('unavailable');
         const pair = await response.json();
         if (typeof pair.user !== 'string' || typeof pair.assistant !== 'string' || !pair.user.trim() || !pair.assistant.trim() || pair.user.length>6000 || pair.assistant.length>12000) throw Error('invalid');
+        if(state.memory.length)state.archives.push({saved_at:new Date().toISOString(),memory:state.memory,movementKeys:state.movementKeys,continuityKey:state.continuityKey});
         state.memory=[{user:pair.user,assistant:pair.assistant}];
         state.movementKeys={};state.continuityKey=null;
         redraw();save();status.textContent=[text.ready,storageError].filter(Boolean).join(' ');
       } catch (_) { status.textContent=text.error; }
       finally {
-        controls.forEach((el,i)=>el.disabled=prior[i]); send.disabled=false;
+        controls.forEach((el,i)=>el.disabled=prior[i]); send.disabled=false;sharedLoadPending=false;
         history.replaceState(null,'',location.pathname+location.search);
       }
     })();
   }
+
+  window.addEventListener('hashchange',loadSharedExcerpt);
+  loadSharedExcerpt();
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
