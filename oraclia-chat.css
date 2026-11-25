@@ -280,3 +280,5 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
  #or-print .or-message-body{white-space:pre-wrap;overflow-wrap:anywhere}
  #or-print article{break-inside:auto}
 }
+
+.or-share-dialog [hidden]{display:none!important}
