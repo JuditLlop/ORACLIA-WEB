@@ -163,7 +163,14 @@
     article.appendChild(body);
     const share = document.createElement('button'); share.type='button'; share.className='or-share-message';
     share.textContent='Compartir';
-    share.addEventListener('click',()=>document.dispatchEvent(new CustomEvent('oraclia-share',{detail:{text:body.innerText}})));
+    share.addEventListener('click',()=>{
+      if (send.disabled) return;
+      const user = role === 'user' ? article : article.previousElementSibling;
+      const answer = role === 'assistant' ? article : article.nextElementSibling;
+      const pair = user?.classList.contains('user') && answer?.classList.contains('assistant')
+        ? {user:user.querySelector('.or-message-body').innerText, assistant:answer.querySelector('.or-message-body').innerText} : null;
+      document.dispatchEvent(new CustomEvent('oraclia-share',{detail:{text:body.innerText,pair}}));
+    });
     article.appendChild(share);
     messages.appendChild(article);
     document.getElementById("or-lab-empty").hidden = true;
@@ -195,6 +202,35 @@
   } catch (_) { storageError = 'No se ha podido recuperar el registro guardado. Puedes continuar y guardar una copia.'; }
   redraw();
   status.textContent = storageError || (state.memory.length ? 'Conversación recuperada de este navegador.' : '');
+
+  // A shared link seeds ONLY the approved pair. Existing conversations stay archived locally.
+  const sharedId = new URLSearchParams(location.hash.slice(1)).get('shared');
+  if (sharedId) {
+    const text = ({
+      ca:{loading:'Carregant el fragment compartit…',ready:'Conversa iniciada a partir d’un fragment compartit. La continuació és independent; qui l’ha compartit no la veu.',error:'Aquest enllaç no està disponible, ha caducat o s’ha retirat. Pots començar una conversa nova.'},
+      es:{loading:'Cargando el fragmento compartido…',ready:'Conversación iniciada a partir de un fragmento compartido. La continuación es independiente; quien lo compartió no la ve.',error:'Este enlace no está disponible, ha caducado o se ha retirado. Puedes empezar una conversación nueva.'},
+      en:{loading:'Loading shared excerpt…',ready:'Conversation started from a shared excerpt. Your continuation is separate; the sender cannot see it.',error:'This link is unavailable, expired or withdrawn. You can start a new conversation.'}
+    })[pageLanguage] || {loading:'Loading…',ready:'Independent conversation from a shared excerpt.',error:'Shared excerpt unavailable.'};
+    const controls = [...form.querySelectorAll('button, input, textarea, select')];
+    const prior = controls.map(el=>el.disabled); controls.forEach(el=>el.disabled=true);
+    send.disabled=true; status.textContent=text.loading;
+    (async()=>{
+      try {
+        if (!/^[A-Za-z0-9_-]{32}$/.test(sharedId)) throw Error('invalid');
+        const response = await fetch(API.replace(/\/oraclia$/, '')+'/shares/'+sharedId,{cache:'no-store',signal:AbortSignal.timeout(20000)});
+        if (!response.ok) throw Error('unavailable');
+        const pair = await response.json();
+        if (typeof pair.user !== 'string' || typeof pair.assistant !== 'string' || !pair.user.trim() || !pair.assistant.trim() || pair.user.length>6000 || pair.assistant.length>12000) throw Error('invalid');
+        state.memory=[{user:pair.user,assistant:pair.assistant}];
+        state.movementKeys={};state.continuityKey=null;
+        redraw();save();status.textContent=[text.ready,storageError].filter(Boolean).join(' ');
+      } catch (_) { status.textContent=text.error; }
+      finally {
+        controls.forEach((el,i)=>el.disabled=prior[i]); send.disabled=false;
+        history.replaceState(null,'',location.pathname+location.search);
+      }
+    })();
+  }
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
