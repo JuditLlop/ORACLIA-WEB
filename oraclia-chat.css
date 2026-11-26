@@ -282,3 +282,10 @@ footer.or-unified-footer .or-footer-credit{max-width:620px;font-size:11px}
 }
 
 .or-share-dialog [hidden]{display:none!important}
+
+.or-message-actions{display:flex;align-items:center;gap:8px;margin-top:12px}
+.or-share-icon{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:9px;border:0;border-radius:8px;background:transparent;color:inherit;cursor:pointer}
+.or-share-icon svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.or-share-icon:hover{background:#00000008}.or-share-icon:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@media print{.or-message-actions{display:none!important}}
+
