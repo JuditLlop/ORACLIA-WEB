@@ -38,7 +38,8 @@
   if (!wording) return;
   const api='https://oraclia-api.onrender.com/shares';
   const recordKey='oraclia.shared-links.v1';
-  let current=null, busy=false;
+  let current=null, busy=false, channel='whatsapp';
+  const mailLabels=({ca:{open:'Obrir correu',subject:'Una conversa amb Oraclia',preview:'Previsualització del correu'},es:{open:'Abrir correo',subject:'Una conversación con Oraclia',preview:'Vista previa del correo'},en:{open:'Open email',subject:'A conversation with Oraclia',preview:'Email preview'}})[lang];
   const dialog=document.createElement('dialog');dialog.className='or-share-dialog';dialog.setAttribute('aria-labelledby','or-share-title');
   const heading=document.createElement('h2');heading.id='or-share-title';heading.textContent=wording.title;
   const hint=document.createElement('p');hint.textContent=wording.hint;
@@ -75,6 +76,9 @@
     records.hidden=!recordList.children.length;
   }
   function refresh(){
+    open.textContent=channel==='email'?mailLabels.open:labels.open;
+    previewLabel.textContent=channel==='email'?mailLabels.preview:wording.preview;
+    if(channel==='email')open.removeAttribute('target');else open.target='_blank';
     const valid=user.value.trim() && answer.value.trim();
     create.disabled=busy||!valid;cancel.disabled=busy;user.disabled=answer.disabled=busy;
     copy.hidden=open.hidden=revoke.hidden=preview.hidden=previewLabel.hidden=!current;
@@ -82,7 +86,7 @@
     const path=({ca:'oraclia-ca.html',es:'oraclia.html',en:'oraclia-en.html'})[lang];
     const url=new URL(path,location.href);url.search='';url.hash='shared='+current.id;
     preview.value='Oraclia\n'+wording.edited+'\n\n'+wording.author+'\n'+current.user+'\n\nOraclia\n'+current.assistant+'\n\n'+wording.follow+'\n'+url.href;
-    open.href='https://wa.me/?text='+encodeURIComponent(preview.value);
+    open.href=channel==='email' ? 'mailto:?subject='+encodeURIComponent(mailLabels.subject)+'&body='+encodeURIComponent(preview.value) : 'https://wa.me/?text='+encodeURIComponent(preview.value);
   }
   async function createLink(){
     if(busy||!user.value.trim()||!answer.value.trim())return;
@@ -112,11 +116,11 @@
   dialog.addEventListener('cancel',event=>{if(busy)event.preventDefault();});
   document.addEventListener('oraclia-share',event=>{
     if(busy)return;
+    channel=event.detail.channel==='email'?'email':'whatsapp';
     const pair=event.detail.pair;
     if(!pair){status.textContent=wording.incomplete;return;}
     user.value=pair.user;answer.value=pair.assistant;current=null;notice.textContent='';records.open=false;
     refresh();renderRecords();dialog.showModal();user.focus();
   });
-  function labelButtons(){document.querySelectorAll('.or-share-message').forEach(b=>{if(b.textContent!==wording.share)b.textContent=wording.share;});}
-  labelButtons();new MutationObserver(labelButtons).observe(document.getElementById('or-messages'),{childList:true,subtree:true});
 })();
+

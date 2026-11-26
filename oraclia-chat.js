@@ -161,17 +161,27 @@
     if (role === 'assistant') appendAnswerText(body, text);
     else body.textContent = text;
     article.appendChild(body);
-    const share = document.createElement('button'); share.type='button'; share.className='or-share-message';
-    share.textContent='Compartir';
-    share.addEventListener('click',()=>{
-      if (send.disabled) return;
-      const user = role === 'user' ? article : article.previousElementSibling;
-      const answer = role === 'assistant' ? article : article.nextElementSibling;
-      const pair = user?.classList.contains('user') && answer?.classList.contains('assistant')
-        ? {user:user.querySelector('.or-message-body').innerText, assistant:answer.querySelector('.or-message-body').innerText} : null;
-      document.dispatchEvent(new CustomEvent('oraclia-share',{detail:{text:body.innerText,pair}}));
-    });
-    article.appendChild(share);
+    if (role === 'assistant') {
+      const actions=document.createElement('div');actions.className='or-message-actions';
+      const names=({ca:['Compartir per WhatsApp','Compartir per correu'],es:['Compartir por WhatsApp','Compartir por correo'],en:['Share via WhatsApp','Share via email']})[pageLanguage] || ['Share via WhatsApp','Share via email'];
+      const icons=[
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.8a8.5 8.5 0 1 1 16.1-4.1Z"/><path d="M8.2 7.5c-.5 0-1 1-1 1.7 0 2.5 3.5 6.1 6.2 6.1.8 0 1.8-.5 1.9-1.1l.1-.9-2.2-1.1-.9 1c-1.3-.6-2.2-1.5-2.8-2.8l.9-.9-1-2Z"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>'
+      ];
+      ['whatsapp','email'].forEach((channel,i)=>{
+        const button=document.createElement('button');button.type='button';button.className='or-share-icon';
+        button.setAttribute('aria-label',names[i]);button.title=names[i];button.innerHTML=icons[i];
+        button.addEventListener('click',()=>{
+          if(send.disabled)return;
+          const user=article.previousElementSibling;
+          if(!user?.classList.contains('user'))return;
+          const pair={user:user.querySelector('.or-message-body').innerText,assistant:body.innerText};
+          document.dispatchEvent(new CustomEvent('oraclia-share',{detail:{pair,channel}}));
+        });
+        actions.appendChild(button);
+      });
+      article.appendChild(actions);
+    }
     messages.appendChild(article);
     document.getElementById("or-lab-empty").hidden = true;
     if (scroll) article.scrollIntoView({behavior: 'smooth', block: 'start'});
@@ -403,4 +413,5 @@
     storageError = ''; redraw(); status.textContent = 'Datos guardados borrados.';
   });
 })();
+
 
